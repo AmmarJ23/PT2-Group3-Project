@@ -68,7 +68,6 @@ class Patient : public Person
 {
 	private:
 	public:
-
 		string illness;
 		Guardian g1;
 
@@ -81,14 +80,12 @@ class Patient : public Person
 			g1.setPhone(gp);
 	    }
 
-		virtual void print() const
+		virtual void print()
 		{
 			cout << "Patient's Name   :" << getName() << endl;
 			cout << "Illness          :" << illness << endl;
 			cout << "Guardian's Name  :" << g1.getName() << endl;
 			cout << "Guardian's Phone :" << g1.getPhoneNumber() << endl;
-
-
 
 			cout << "Doctor's Name    :" << endl;
 			cout << "Doctor's Dept.   :" << endl;
@@ -96,15 +93,19 @@ class Patient : public Person
 			cout << " *** No doctor assigned yet *** " << endl;
 	    }
 
+		void assignDoctor(Doctor * doc)
+		{
+			
+		}
+
 		
 };
 
 class Outpatient : public Patient
 {
 	private: 
-	public:
 		string diagnosis;
-
+	public:
 		Outpatient( string pn="", string pi="",    // patient's name and illness
 		            string gn="", string gp="",    // guardian's name and phone number
 					string pdiagnosis="")          // diagnosis type
@@ -116,20 +117,37 @@ class Outpatient : public Patient
 			diagnosis = pdiagnosis;
 		}
 
-		void print() const
+		void print()
 		{
 		    cout << "Patient Type:  OUTPATIENT " 	<< endl;
 			cout << "Diagnosis   :  "<<  diagnosis	<< endl;
 			cout << endl;
+
+			cout << "Patient's Name   :" << getName() << endl;
+			cout << "Illness          :" << illness << endl;
+			cout << "Guardian's Name  :" << g1.getName() << endl;
+			cout << "Guardian's Phone :" << g1.getPhoneNumber() << endl;
+
+			if(docTemp = NULL){
+				cout << " *** No doctor assigned yet *** " << endl;
+			} else {
+
+				string tempName = docTemp->getName();
+				string tempDept = docTemp->getDepartment();
+
+				cout << "Doctor's Name    :" << tempName << endl;
+				cout << "Doctor's Dept.   :" << tempDept << endl;
+			}
+
+			
 		}
 };
 
 class Inpatient : public Patient
 {
 	private:
-	public:
 		string ward;
-
+	public:
 		Inpatient( string pn="", string pi="",    // patient's name and illness
 		           string gn="", string gp="",    // guardian's name and phone number
 				   string pward="")               // patient's ward
@@ -141,12 +159,25 @@ class Inpatient : public Patient
 			ward = pward;
 		}
 
-		void print() const
+		void print()
 		{
 			cout << "Patient Type:  INPATIENT "<< endl;
 			cout << "Ward        :  "<< ward   << endl;
 			cout << endl;
+
+			cout << "Patient's Name   :" << getName() << endl;
+			cout << "Illness          :" << illness << endl;
+			cout << "Guardian's Name  :" << g1.getName() << endl;
+			cout << "Guardian's Phone :" << g1.getPhoneNumber() << endl;
+
+			if(docTemp = NULL){
+				cout << " *** No doctor assigned yet *** " << endl;
+			} else {
+				cout << "Doctor's Name    :" << docTemp->getName() << endl;
+				cout << "Doctor's Dept.   :" << docTemp->getDepartment() << endl;
+			}
 		}
+
 };
 
 
@@ -178,11 +209,23 @@ int main()
 
 	Doctor docArray[NDOC] = {	Doctor("Dr. Ramli", "ICU"), 
 								Doctor("Dr. Kamariah", "Radiology")};
-								
-	Patient patientArray[NPATIENT] = {	Outpatient("Rozita", "Sprained Ankle", "Saleh", "4466", "X-Ray"), 
-										Inpatient("Nurdiana", "Respiratory Failure", "Jalil", "7731", "ICU 101"), 
-										Outpatient("Ali", "Coronary Artery", "Bakar", "1234", "CT Scan")};
 
+
+	// Outpatient *roz;
+	// Inpatient *nur;
+	// Outpatient *ali;
+								
+	// Patient patientArray[NPATIENT] = {	Outpatient("Rozita", "Sprained Ankle", "Saleh", "4466", "X-Ray"), 
+	// 									Inpatient("Nurdiana", "Respiratory Failure", "Jalil", "7731", "ICU 101"), 
+	// 									Outpatient("Ali", "Coronary Artery", "Bakar", "1234", "CT Scan")};
+
+	Patient** patientArray = new Patient*[3];
+
+	patientArray[0] = new Outpatient("Rozita", "Sprained Ankle", "Saleh", "4466", "X-Ray");
+	patientArray[1] = new Inpatient("Nurdiana", "Respiratory Failure", "Jalil", "7731", "ICU 101");
+	patientArray[2] = new Outpatient("Ali", "Coronary Artery", "Bakar", "1234", "CT Scan");
+
+	Doctor *docPtr;
 	// For convenience (for copy-and-paste purposes), the data of doctors and patients
 	//  are given at the bottom of this program.
 
@@ -203,12 +246,12 @@ int main()
 
 			case 2: // List Patients
 				for(int i=0; i<NPATIENT; i++){
-					//cout << "Patient #" << i << " name : " << 
-					patientArray[i].print();
-					// << endl;
-
+					cout << "Patient #" << i << endl;
+					patientArray[i]->print();
 					cout << endl;
 				}
+
+				cout << endl << endl;
 
 				break;
 
@@ -222,6 +265,18 @@ int main()
 
 				cout <<"Enter the patient index and doctor index => ";
 				cin >> pIndex >> dIndex;
+				
+				bool pIndexValid=false, dIndexValid=false;
+
+				if((pIndex >= 0) && (pIndex <= 2)) pIndexValid = true;
+				if((dIndex >= 0) && (dIndex <= 1)) dIndexValid = true;
+
+				if (pIndexValid && dIndexValid){cout << "Index is in range" << endl;} 
+				else {cout << "** Error: Index is out of range"; break;}
+
+				
+				docPtr = &docArray[dIndex];
+				patientArray[pIndex]->assignDoctor(docPtr);
 
 				break;
 		}
