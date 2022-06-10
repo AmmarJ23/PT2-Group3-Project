@@ -3,7 +3,13 @@
 // SECJ J1023- Programming Technique II
 // Semester 2, 2021/2022
 // Tutorial Polymorphism
+// 
+// Group 3
 //
+// Members: 1.AFIQ FAHMI BIN ROSLAN (A21EC0153)
+//			2.AMMAR BIN JAMALLUDIN 	(A21EC0160)
+//			3.AZHAN HANIFF BIN AZNI (A21EC0017)
+//			4.RYAN LIM SHEN 		(A21EC0223)
 //------------------------------------------------------------------------------
 
 #include<iostream>
@@ -17,34 +23,33 @@ class Person
 		string name;
 	public:
 		Person(string name=""){ setName(name); }
-		virtual string getName() const{return name;}
-		virtual void setName(string name) {this->name = name;}
+		string getName() const{return name;}
+		void setName(string name) {this->name = name;}
 };
 
 
+//---------------------------------------Doctor class---------------------------------------//
 class Doctor : public Person
 {
 	private:
 		string department;
 	public:
-
-		// Person docName;
-
 		Doctor(string n, string d)  // n is doctor's name,  d is department
 		{
 			name = n;
 			department = d;
 		}
 
-		string getDepartment()
+		string getDepartment() const
 		{
 			return department;
 		}
 };
 
+//--------------------------------------Guardian class--------------------------------------//
 class Guardian : public Person
 {	
-   private:
+   protected:
 		string phone;
    public:
 		Guardian(string n="", string p="") // n is guardian's name,  p is phone number
@@ -53,7 +58,7 @@ class Guardian : public Person
 			phone = p;
 		}
 
-		string getPhoneNumber()
+		string getPhoneNumber() const
 		{
 			return phone;
 		}
@@ -64,13 +69,14 @@ class Guardian : public Person
 		}
 };
 
+//--------------------------------------Patient class---------------------------------------//
 class Patient : public Person
 {
-	private:
-	public:
+	protected:
 		string illness;
 		Guardian g1;
-
+		Doctor *docAssign = NULL;
+	public:
 		Patient(string pn="", string pi="",   // patient's name and the illness
 		        string gn="", string gp="" ) : g1(gn, gp) // guardian's name and phone number
 		{
@@ -95,12 +101,12 @@ class Patient : public Person
 
 		void assignDoctor(Doctor * doc)
 		{
-			
+			docAssign = doc;
 		}
 
-		
 };
 
+//-------------------------------------Outpatient class-------------------------------------//
 class Outpatient : public Patient
 {
 	private: 
@@ -128,21 +134,17 @@ class Outpatient : public Patient
 			cout << "Guardian's Name  :" << g1.getName() << endl;
 			cout << "Guardian's Phone :" << g1.getPhoneNumber() << endl;
 
-			if(docTemp = NULL){
+			if(docAssign == NULL){
 				cout << " *** No doctor assigned yet *** " << endl;
 			} else {
-
-				string tempName = docTemp->getName();
-				string tempDept = docTemp->getDepartment();
-
-				cout << "Doctor's Name    :" << tempName << endl;
-				cout << "Doctor's Dept.   :" << tempDept << endl;
+				cout << "Doctor's Name    :" << docAssign->getName() << endl;
+				cout << "Doctor's Dept.   :" << docAssign->getDepartment() << endl;
 			}
-
 			
 		}
 };
 
+//-------------------------------------Inpatient class--------------------------------------//
 class Inpatient : public Patient
 {
 	private:
@@ -170,17 +172,17 @@ class Inpatient : public Patient
 			cout << "Guardian's Name  :" << g1.getName() << endl;
 			cout << "Guardian's Phone :" << g1.getPhoneNumber() << endl;
 
-			if(docTemp = NULL){
+			if(docAssign == NULL){
 				cout << " *** No doctor assigned yet *** " << endl;
 			} else {
-				cout << "Doctor's Name    :" << docTemp->getName() << endl;
-				cout << "Doctor's Dept.   :" << docTemp->getDepartment() << endl;
+				cout << "Doctor's Name    :" << docAssign->getName() << endl;
+				cout << "Doctor's Dept.   :" << docAssign->getDepartment() << endl;
 			}
 		}
 
 };
 
-
+//---------------------------------------Menu Function--------------------------------------//
 // The menu function is fully given
 int menu()
 {
@@ -202,6 +204,7 @@ int menu()
 	return choice;
 }
 
+//--------------------------------------main function---------------------------------------//
 int main()
 {
 	const int NDOC = 2;  // Number of of doctor.
@@ -210,16 +213,7 @@ int main()
 	Doctor docArray[NDOC] = {	Doctor("Dr. Ramli", "ICU"), 
 								Doctor("Dr. Kamariah", "Radiology")};
 
-
-	// Outpatient *roz;
-	// Inpatient *nur;
-	// Outpatient *ali;
-								
-	// Patient patientArray[NPATIENT] = {	Outpatient("Rozita", "Sprained Ankle", "Saleh", "4466", "X-Ray"), 
-	// 									Inpatient("Nurdiana", "Respiratory Failure", "Jalil", "7731", "ICU 101"), 
-	// 									Outpatient("Ali", "Coronary Artery", "Bakar", "1234", "CT Scan")};
-
-	Patient** patientArray = new Patient*[3];
+	Patient** patientArray = new Patient*[NPATIENT];
 
 	patientArray[0] = new Outpatient("Rozita", "Sprained Ankle", "Saleh", "4466", "X-Ray");
 	patientArray[1] = new Inpatient("Nurdiana", "Respiratory Failure", "Jalil", "7731", "ICU 101");
@@ -239,7 +233,7 @@ int main()
 				
 				for(int i=0; i<NDOC; i++){
 					cout <<"Doctor's Name: " << docArray[i].getName() << "\t"
-						<<"Department: " << docArray[i].getDepartment()  << endl;
+						 <<"Department: " 	 << docArray[i].getDepartment()  << endl;
 				}
 
 				break;
@@ -265,18 +259,18 @@ int main()
 
 				cout <<"Enter the patient index and doctor index => ";
 				cin >> pIndex >> dIndex;
-				
-				bool pIndexValid=false, dIndexValid=false;
 
-				if((pIndex >= 0) && (pIndex <= 2)) pIndexValid = true;
-				if((dIndex >= 0) && (dIndex <= 1)) dIndexValid = true;
+				if((pIndex>=0 && pIndex <NPATIENT) && (dIndex >=0 && dIndex < NDOC))
+				{
+					docPtr = &docArray[dIndex];
+					patientArray[pIndex]->assignDoctor(docPtr);
+				}
 
-				if (pIndexValid && dIndexValid){cout << "Index is in range" << endl;} 
-				else {cout << "** Error: Index is out of range"; break;}
-
-				
-				docPtr = &docArray[dIndex];
-				patientArray[pIndex]->assignDoctor(docPtr);
+				else
+				{
+					cout << "** Error: Index is out of range" << endl;
+					break;
+				}
 
 				break;
 		}
