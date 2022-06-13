@@ -20,7 +20,7 @@ class loginInfo{
         void setNP(string n, string p) {
             this->userName = n;
             this->password = p;
-            }
+        }
 };
 
 class User: public loginInfo{ 
@@ -45,8 +45,6 @@ class User: public loginInfo{
             cout << "Phone Number: " << phoneNumber << endl;
         }
 
-
-
 };
 
 bool loginValidation(User user){
@@ -55,12 +53,13 @@ bool loginValidation(User user){
 
     cout << "Enter username: ";
     cin >> userName;
+
     cout << "Enter password: ";
     cin >> password;
 
-    if (userName.compare(user.getUsername()) == true){
+    if (userName.compare(user.getUsername()) == 0){
 
-        if (userName.compare(user.getPassword()) == true){
+        if (password.compare(user.getPassword()) == 0){
             valid = true;
         }else{
             cout << "Incorrect password" << endl;
@@ -69,16 +68,15 @@ bool loginValidation(User user){
     } else {
         cout << "Username not found" << endl;
     }
-
-
-    
+   
     return valid;
 }
-
 
 int main(){
 
     User user1("Username1", "Username1Password","John Doe", "123, Street name, 0000, District", "Pfizer", 12345); 
+
+    cout << loginValidation(user1) << endl << endl;
 
     user1.print();
 
