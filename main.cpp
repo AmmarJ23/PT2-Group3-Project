@@ -80,24 +80,13 @@ bool loginValidation(User user){
 }
 
 //---------------------------------------main function---------------------------------------//
-int main(){
+void getUserData(User user[]){
 
     string temp1[5];
     int temp2;
 
-
-    User user1("Username1", "Username1Password","John Doe", "123, Street name, 0000, District", "Pfizer", 12345); 
-
-   // cout << loginValidation(user1) << endl << endl;
-
-    user1.print();
-
-    User userArray[3];
-
     ifstream inputFile("User_Data.txt");
 
-    
-    
     for (int k = 0; k < 3; k++)
     {
 
@@ -109,9 +98,27 @@ int main(){
         
         User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp2);
 
-        userArray[k] = userTemp;
+        user[k] = userTemp;
+        inputFile >> temp1[0];
 
     }
+}
+
+//---------------------------------------main function---------------------------------------//
+int main(){
+
+    string temp1[5];
+    int temp2;
+
+    User user1("Username1", "Username1Password","John Doe", "123, Street name, 0000, District", "Pfizer", 12345); 
+
+   // cout << loginValidation(user1) << endl << endl;
+
+    user1.print();
+
+    User userArray[3];
+
+    getUserData(userArray);
 
     for (int i = 0; i < 3; i++)
     {
