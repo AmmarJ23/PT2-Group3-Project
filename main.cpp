@@ -107,21 +107,17 @@ void getUserData(User user[]){
     string temp1[6];
     int temp2;
 
-
     ifstream inputFile("User_Data.txt");
 
     for (int k = 0; k < 3; k++)
     {
-
         for (int i = 0; i < 6; i++)
         {
             getline(inputFile,temp1[i]);
         }
         
         User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
-
         user[k] = userTemp;
-
     }
 
     inputFile.close();
