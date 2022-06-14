@@ -4,14 +4,14 @@
 #include <iomanip>
 using namespace std;
 
+//---------------------------------------loginReturnData struct----------------------------------------//
 struct loginReturnData
 {
     bool valid;
     int userIndex;
 };
 
-
-//---------------------------------------loginInfo class---------------------------------------//
+//-------------------------------------------loginInfo class-------------------------------------------//
 class loginInfo{
     protected:
         string userName, password;
@@ -33,7 +33,7 @@ class loginInfo{
         }
 };
 
-//---------------------------------------User class---------------------------------------//
+//----------------------------------------------User class---------------------------------------------//
 class User: public loginInfo{ 
     private:
         string name, address, vaccine, phoneNumber;
@@ -92,7 +92,7 @@ loginReturnData loginValidation(User user[]){
     return logReturn;
 }
 
-//---------------------------------------getUserData function---------------------------------------//
+//----------------------------------------getUserData function-----------------------------------------//
 void getUserData(User user[]){
 
     string temp1[6];
@@ -118,7 +118,7 @@ void getUserData(User user[]){
     inputFile.close();
 }
 
-//---------------------------------------menu function---------------------------------------//
+//--------------------------------------------menu function--------------------------------------------//
 void menu(User user[]){
     int choice;
     
@@ -164,7 +164,7 @@ void menu(User user[]){
     
 }
 
-//---------------------------------------main function---------------------------------------//
+//--------------------------------------------main function--------------------------------------------//
 int main(){
     
     string temp1[5];
