@@ -4,6 +4,13 @@
 #include <iomanip>
 using namespace std;
 
+struct loginReturnData
+{
+    bool valid;
+    int userIndex;
+};
+
+
 //---------------------------------------loginInfo class---------------------------------------//
 class loginInfo{
     protected:
@@ -29,13 +36,12 @@ class loginInfo{
 //---------------------------------------User class---------------------------------------//
 class User: public loginInfo{ 
     private:
-        string name, address, vaccine;
-        int phoneNumber;
+        string name, address, vaccine, phoneNumber;
     public:
 
         User(){}
 
-        User(string Un, string p, string n, string ad, string vc, int pN)
+        User(string Un, string p, string n, string ad, string vc, string pN)
         {
             userName = Un;
             password = p;
@@ -55,9 +61,10 @@ class User: public loginInfo{
 };
 
 //---------------------------------------loginValdation function---------------------------------------//
-bool loginValidation(User user[]){
-    bool valid = false;
+loginReturnData loginValidation(User user[]){
+
     string userName, password;
+    loginReturnData logReturn;
 
     cout << "Enter username: ";
     cin >> userName;
@@ -67,45 +74,44 @@ bool loginValidation(User user[]){
 
     for (int i = 0; i < 3; i++)
     {
-
         bool userValid = userName.compare(user[i].getUsername());
         bool passValid = password.compare(user[i].getPassword());
 
         if (userValid == 0 && passValid == 0)
         {
-            valid = true;
+            logReturn.valid = true;
+            logReturn.userIndex = i;
         }
     }
 
-    if (valid == false)
+    if (logReturn.valid == false)
     {
         cout << "Incorrect username or password" << endl;
     }
     
-    return valid;
+    return logReturn;
 }
 
 //---------------------------------------getUserData function---------------------------------------//
 void getUserData(User user[]){
 
-    string temp1[5];
+    string temp1[6];
     int temp2;
+
 
     ifstream inputFile("User_Data.txt");
 
     for (int k = 0; k < 3; k++)
     {
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
             getline(inputFile,temp1[i]);
         }
-            inputFile >> temp2;
         
-        User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp2);
+        User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
 
         user[k] = userTemp;
-        inputFile >> temp1[0];
 
     }
 
@@ -174,8 +180,7 @@ int main(){
     //     cout << endl;
     // }
 
-
-    bool valid = loginValidation(userArray);
+    loginReturnData loggedUser = loginValidation(userArray);
 
 
     //menu(userArray);
