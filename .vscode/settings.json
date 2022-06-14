@@ -6,7 +6,8 @@
     "*.rmd": "markdown",
     "ostream": "cpp",
     "iosfwd": "cpp",
-    "*.tcc": "cpp"
+    "*.tcc": "cpp",
+    "iomanip": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "C_Cpp_Runner.cStandard": "",
