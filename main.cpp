@@ -71,7 +71,7 @@ class healthCondition{
 
             cout<<"Where are you currently residing?(KTHO/KTDI/KTC/KTF)"<<endl;
             getline(cin, location);
-        }
+        }// location == ktdi/ktho && TR == positive{+1 dekat infectednummber dalam hotspotinfo}
 };
 
 //----------------------------------------------User class---------------------------------------------//
