@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
+//---------------------------------------loginInfo class---------------------------------------//
 class loginInfo{
     protected:
         string userName, password;
@@ -23,11 +25,15 @@ class loginInfo{
         }
 };
 
+//---------------------------------------User class---------------------------------------//
 class User: public loginInfo{ 
     private:
         string name, address, vaccine;
         int phoneNumber;
     public:
+
+        User(){}
+
         User(string Un, string p, string n, string ad, string vc, int pN)
         {
             userName = Un;
@@ -47,6 +53,7 @@ class User: public loginInfo{
 
 };
 
+//---------------------------------------loginValdation function---------------------------------------//
 bool loginValidation(User user){
     bool valid = false;
     string userName, password;
@@ -68,17 +75,58 @@ bool loginValidation(User user){
     } else {
         cout << "Username not found" << endl;
     }
-   
+    
     return valid;
 }
 
+//---------------------------------------main function---------------------------------------//
 int main(){
+
+    string temp1[5];
+    int temp2;
+
 
     User user1("Username1", "Username1Password","John Doe", "123, Street name, 0000, District", "Pfizer", 12345); 
 
-    cout << loginValidation(user1) << endl << endl;
+   // cout << loginValidation(user1) << endl << endl;
 
     user1.print();
+
+    User userArray[3];
+
+    ifstream inputFile("User_Data.txt");
+
+    
+    
+    for (int k = 0; k < 3; k++)
+    {
+
+        for (int i = 0; i < 5; i++)
+        {
+            getline(inputFile,temp1[i]);
+        }
+            inputFile >> temp2;
+        
+        User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp2);
+
+        userArray[k] = userTemp;
+
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        cout << endl;
+
+        userArray[i].print();
+
+        cout << endl;
+    }
+    
+
+    cout << endl;
+
+    //user2.print();
+
 
     system("PAUSE");
     return 0;
