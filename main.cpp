@@ -78,8 +78,10 @@ class healthCondition{
 class User: public loginInfo{ 
     private:
         string name, address, vaccine, phoneNumber;
-        healthCondition userHealth;
+        
     public:
+
+        healthCondition userHealth;
 
         User(){}
 
@@ -99,6 +101,7 @@ class User: public loginInfo{
             cout << "Vaccine     : " << vaccine << endl;
             cout << "Phone Number: " << phoneNumber << endl;
         }
+        
 
 };
 
@@ -140,38 +143,56 @@ class hotspotInfo{
         }
 };
 
-//-------------------------------------------LoginMenu function-----------------------------------------//
+//function prototype
+loginReturnData userLoginMenu(User []);
+bool adminLoginMenu(admin);
+void appMenu(loginReturnData, User[]);
 
-void LoginMenu()
+//-------------------------------------------LoginMenu function-----------------------------------------//
+void LoginMenu(User user[], admin admin_)
 {
+    int choice;
+
     cout<<"          LOGIN AND REGISTERATION         "<<endl;
     cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
   	cout<<"------------------------------------------"<<endl;
     cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
     cout<<"------------------------------------------"<<endl;
     
-    cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Donno"<<endl;
-    cout<< setw(10)<<" 2. "<<setw(10)<<"Login Validation"<<endl;//!buang
-    cout<< setw(10)<<" 3. "<<setw(10)<<"HotSpot Info"<<endl;
-    cout<< setw(10)<<" 4. "<<setw(10)<<"Guide Info"<<endl;
-    cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl;
+    cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Admin Login"<<endl;
+    cout<< setw(10)<<" 2. "<<setw(10)<<"User Login"<<endl;
+    cout<< setw(10)<<" 3. "<<setw(10)<<"Register"<<endl;
+    cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl;
 
     while (true)
     {
         cin >> choice;
 
         switch(choice){
-        case 1:
-            break;
-        case 2:
-            userLoginMenu(user);//buang
-            break;
+            case 1:
+                adminLoginMenu(admin_);
+                break;
+            case 2:
+            {
+                loginReturnData userLogData =  userLoginMenu(user);
+                appMenu(userLogData, user);
+                break;
+            }
+                
+                
+            case 3:
+                //UserRegister();
+                break;
+
+            case 4:
+                cout<< "Exiting now..."<<endl;
+                exit(1);
             
-        case 3:
-            //HotspotInfo();
-            break;
+            default:
+                cout<<"Please enter the valid number(1-3)"<<endl;
+                break;
         }
-    
+    }
 }
 
 //----------------------------------------userLoginMenu function---------------------------------------//
@@ -266,7 +287,7 @@ void getUserData(User user[]){
 }
 
 //--------------------------------------------menu function--------------------------------------------//
-void appMenu(){
+void appMenu(loginReturnData logData, User user[]){
     int choice;
     
  	cout<<"WELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
@@ -275,7 +296,7 @@ void appMenu(){
     cout<<"------------------------------------------"<<endl;
   
     cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Donno"<<endl;
-    cout<< setw(10)<<" 2. "<<setw(10)<<"Login Validation"<<endl;//!buang
+    cout<< setw(10)<<" 2. "<<setw(10)<<"Health Condition"<<endl;
     cout<< setw(10)<<" 3. "<<setw(10)<<"HotSpot Info"<<endl;
     cout<< setw(10)<<" 4. "<<setw(10)<<"Guide Info"<<endl;
     cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl;
@@ -288,7 +309,7 @@ void appMenu(){
         case 1:
             break;
         case 2:
-            userLoginMenu(user);//buang
+            user[logData.userIndex].userHealth.setHealthCondition();
             break;
             
         case 3:
@@ -311,8 +332,6 @@ void appMenu(){
     
 }
 
-
-
 //--------------------------------------------main function--------------------------------------------//
 int main(){
     
@@ -323,7 +342,7 @@ int main(){
 
     getUserData(userArray);
 
-    loginReturnData loggedUser = userLoginMenu(userArray);
+    LoginMenu(userArray, admin_);
     
     cout << endl;
 
