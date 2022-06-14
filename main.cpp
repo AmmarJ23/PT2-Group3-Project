@@ -55,17 +55,31 @@ class User: public loginInfo{
 };
 
 //---------------------------------------loginValdation function---------------------------------------//
-bool loginValidation(User user){
+bool loginValidation(User user[]){
     bool valid = false;
     string userName, password;
+
+    cout << "Enter username: ";
+    cin >> userName;
 
     cout << "Enter password: ";
     cin >> password;
 
-    if (password.compare(user.getPassword()) == 0){
-        valid = true;
-    }else{
-        cout << "Incorrect password" << endl;
+    for (int i = 0; i < 3; i++)
+    {
+
+        bool userValid = userName.compare(user[i].getUsername());
+        bool passValid = password.compare(user[i].getPassword());
+
+        if (userValid == 0 && passValid == 0)
+        {
+            valid = true;
+        }
+    }
+
+    if (valid == false)
+    {
+        cout << "Incorrect username or password" << endl;
     }
     
     return valid;
@@ -99,7 +113,7 @@ void getUserData(User user[]){
 }
 
 //---------------------------------------menu function---------------------------------------//
-void menu(){
+void menu(User user[]){
     int choice;
     
  	cout<<"WELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
@@ -119,9 +133,9 @@ void menu(){
 
         switch(choice){
         case 1:
-        
+            break;
         case 2:
-            //loginValidation();
+            loginValidation(user);
             break;
             
         case 3:
@@ -153,26 +167,18 @@ int main(){
 
     getUserData(userArray);
 
-    for (int i = 0; i < 3; i++)
-    {
-        cout << endl;
-        userArray[i].print();
-        cout << endl;
-    }
-
-    // string usernameTemp;
-    // cout << "Enter Username: ";
-    // cin >> usernameTemp;
-
     // for (int i = 0; i < 3; i++)
     // {
-    //     if (usernameTemp.compare(userArray[i].getUsername) == 0)
-    //     {
-    //         loginValidation(userArray[i]);
-    //     }
+    //     cout << endl;
+    //     userArray[i].print();
+    //     cout << endl;
     // }
 
-    menu();
+
+    bool valid = loginValidation(userArray);
+
+
+    //menu(userArray);
     
     
     
