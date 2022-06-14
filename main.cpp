@@ -4,6 +4,9 @@
 #include <iomanip>
 using namespace std;
 
+//global variable for number of users
+int USER_NUM;
+
 //---------------------------------------loginReturnData struct----------------------------------------//
 struct loginReturnData
 {
@@ -64,10 +67,35 @@ class User: public loginInfo{
 //----------------------------------------healthCondition class----------------------------------------//
 class healthCondition{
     private:
-        string symptoms, closeContact, location, travelAbroad;
+        int symptoms, closeContact, testResult, travelAbroad;
+        string location;
     public:
-        healthCondition()
+        healthCondition(){}
+    
+        healthCondition(string symp, string CC, string TR, string loc, string TA)
+        {
+            symptoms = symp;
+            closeContact = CC;
+            testResult = TR;
+            travelAbroad =TA;
+            location = loc;
+        }
+
+        void InputHC()
+        {
+            cout<<"health condition menu"<<endl;
+            cout<<"Please enter the informations about your health conditions"<<endl;
+            cout<<"Are you having any Covid-19 symptoms?(yes/no)"<<endl;
+            getline(cin, symp);
+
+            cout<<"Have you had close contact?(yes/no)"<<endl;
+            
+            cout<<"What is your test result?(positive/negative)"<<endl;
+            
+            
+        }
 };
+
 
 //---------------------------------------loginValdation function---------------------------------------//
 loginReturnData loginValidation(User user[]){
@@ -81,7 +109,7 @@ loginReturnData loginValidation(User user[]){
     cout << "Enter password: ";
     cin >> password;
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < USER_NUM; i++)
     {
         bool userValid = userName.compare(user[i].getUsername());
         bool passValid = password.compare(user[i].getPassword());
@@ -109,7 +137,10 @@ void getUserData(User user[]){
 
     ifstream inputFile("User_Data.txt");
 
-    for (int k = 0; k < 3; k++)
+    inputFile >> USER_NUM;
+                    // ! test & check with cin.ignore() / inputFile.ignore();
+
+    for (int k = 0; k < USER_NUM; k++)
     {
         for (int i = 0; i < 6; i++)
         {
@@ -128,15 +159,15 @@ void menu(User user[]){
     int choice;
     
  	cout<<"WELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
-  	cout<<"--------------------------------"<<endl;
-    cout<<"       PLEASE ENTER YOUR CHOICE  "<<endl;
-    cout<<"--------------------------------"<<endl;
+  	cout<<"------------------------------------------"<<endl;
+    cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+    cout<<"------------------------------------------"<<endl;
   
-    cout<<left<< setw(10)<<" 1 "<<setw(10)<<"Donno"<<endl;
-    cout<< setw(10)<<" 2 "<<setw(10)<<"Login Validation"<<endl;
-    cout<< setw(10)<<" 3 "<<setw(10)<<"HotSpot Info"<<endl;
-    cout<< setw(10)<<" 4 "<<setw(10)<<"Guide Info"<<endl;
-    cout<< setw(10)<<" 5 "<<setw(10)<<"Exit"<<endl;
+    cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Donno"<<endl;
+    cout<< setw(10)<<" 2. "<<setw(10)<<"Login Validation"<<endl;
+    cout<< setw(10)<<" 3. "<<setw(10)<<"HotSpot Info"<<endl;
+    cout<< setw(10)<<" 4. "<<setw(10)<<"Guide Info"<<endl;
+    cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl;
 
     while (true)
     {
