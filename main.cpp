@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iomanip>
 using namespace std;
 
 //---------------------------------------loginInfo class---------------------------------------//
@@ -101,34 +102,45 @@ void getUserData(User user[]){
 void menu(){
     int choice;
     
-    //cout<<" -----------WELCOME TO COV19 ASSIST AND TRACING SYSTEM------------------"<<endl;
-    //cout<<left<<"PLEASE ENTER YOUR CHOICE  "<<endl;
-    //cout<<"--------------------------"<<endl;
-   // cout<<left<< setw(10)<<
-    switch(choice){
+ 	cout<<"WELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
+  	cout<<"--------------------------------"<<endl;
+    cout<<"       PLEASE ENTER YOUR CHOICE  "<<endl;
+    cout<<"--------------------------------"<<endl;
+  
+    cout<<left<< setw(10)<<" 1 "<<setw(10)<<"Donno"<<endl;
+    cout<< setw(10)<<" 2 "<<setw(10)<<"Login Validation"<<endl;
+    cout<< setw(10)<<" 3 "<<setw(10)<<"HotSpot Info"<<endl;
+    cout<< setw(10)<<" 4 "<<setw(10)<<"Guide Info"<<endl;
+    cout<< setw(10)<<" 5 "<<setw(10)<<"Exit"<<endl;
+
+    while (true)
+    {
+        cin >> choice;
+
+        switch(choice){
         case 1:
         
         case 2:
-            loginValidation();
+            //loginValidation();
             break;
             
         case 3:
-            HotspotInfo();
+            //HotspotInfo();
             break;
 
         case 4:
-            GuideInfo();
+            //GuideInfo();
             break;
             
         case 5:
-            
+            cout<< "Exiting now..."<<endl;
+            exit(1);
         
         default:
             cout<<"Please enter the valid number(1-6)"<<endl;
-            menu();
-        
+            break;
+        }
     }
-
     
 }
 
@@ -148,17 +160,19 @@ int main(){
         cout << endl;
     }
 
-    string usernameTemp;
-    cout << "Enter Username: ";
-    cin >> usernameTemp;
+    // string usernameTemp;
+    // cout << "Enter Username: ";
+    // cin >> usernameTemp;
 
-    for (int i = 0; i < 3; i++)
-    {
-        if (usernameTemp.compare(userArray[i].getUsername) == 0)
-        {
-            loginValidation(userArray[i]);
-        }
-    }
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     if (usernameTemp.compare(userArray[i].getUsername) == 0)
+    //     {
+    //         loginValidation(userArray[i]);
+    //     }
+    // }
+
+    menu();
     
     
     
