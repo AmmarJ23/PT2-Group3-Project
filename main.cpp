@@ -199,14 +199,12 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
                 break;
             }
                 
-                
             case 3:
                 //UserRegister();
                 break;
 
             case 4:
                 cout<< "Exiting now..."<<endl;
-                //exit(1);
                 goto stop_loop;
             
             default:
