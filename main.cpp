@@ -37,6 +37,7 @@ class loginInfo{
 class User: public loginInfo{ 
     private:
         string name, address, vaccine, phoneNumber;
+        healthCondition userHealth;
     public:
 
         User(){}
@@ -58,6 +59,14 @@ class User: public loginInfo{
             cout << "Phone Number: " << phoneNumber << endl;
         }
 
+};
+
+//----------------------------------------healthCondition class----------------------------------------//
+class healthCondition{
+    private:
+        string symptoms, closeContact, location, travelAbroad;
+    public:
+        healthCondition()
 };
 
 //---------------------------------------loginValdation function---------------------------------------//
