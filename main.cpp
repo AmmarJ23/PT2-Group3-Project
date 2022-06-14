@@ -58,28 +58,19 @@ bool loginValidation(User user){
     bool valid = false;
     string userName, password;
 
-    cout << "Enter username: ";
-    cin >> userName;
-
     cout << "Enter password: ";
     cin >> password;
 
-    if (userName.compare(user.getUsername()) == 0){
-
-        if (password.compare(user.getPassword()) == 0){
-            valid = true;
-        }else{
-            cout << "Incorrect password" << endl;
-        }
-
-    } else {
-        cout << "Username not found" << endl;
+    if (password.compare(user.getPassword()) == 0){
+        valid = true;
+    }else{
+        cout << "Incorrect password" << endl;
     }
     
     return valid;
 }
 
-//---------------------------------------main function---------------------------------------//
+//---------------------------------------getUserData function---------------------------------------//
 void getUserData(User user[]){
 
     string temp1[5];
@@ -102,20 +93,50 @@ void getUserData(User user[]){
         inputFile >> temp1[0];
 
     }
+
+    inputFile.close();
+}
+
+//---------------------------------------menu function---------------------------------------//
+void menu(){
+    int choice;
+    
+    //cout<<" -----------WELCOME TO COV19 ASSIST AND TRACING SYSTEM------------------"<<endl;
+    //cout<<left<<"PLEASE ENTER YOUR CHOICE  "<<endl;
+    //cout<<"--------------------------"<<endl;
+   // cout<<left<< setw(10)<<
+    switch(choice){
+        case 1:
+        
+        case 2:
+            loginValidation();
+            break;
+            
+        case 3:
+            HotspotInfo();
+            break;
+
+        case 4:
+            GuideInfo();
+            break;
+            
+        case 5:
+            
+        
+        default:
+            cout<<"Please enter the valid number(1-6)"<<endl;
+            menu();
+        
+    }
+
+    
 }
 
 //---------------------------------------main function---------------------------------------//
 int main(){
-
+    
     string temp1[5];
     int temp2;
-
-    User user1("Username1", "Username1Password","John Doe", "123, Street name, 0000, District", "Pfizer", 12345); 
-
-   // cout << loginValidation(user1) << endl << endl;
-
-    user1.print();
-
     User userArray[3];
 
     getUserData(userArray);
@@ -123,17 +144,25 @@ int main(){
     for (int i = 0; i < 3; i++)
     {
         cout << endl;
-
         userArray[i].print();
-
         cout << endl;
     }
+
+    string usernameTemp;
+    cout << "Enter Username: ";
+    cin >> usernameTemp;
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (usernameTemp.compare(userArray[i].getUsername) == 0)
+        {
+            loginValidation(userArray[i]);
+        }
+    }
     
-
+    
+    
     cout << endl;
-
-    //user2.print();
-
 
     system("PAUSE");
     return 0;
