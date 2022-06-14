@@ -36,6 +36,44 @@ class loginInfo{
         }
 };
 
+//----------------------------------------healthCondition class----------------------------------------//
+class healthCondition{
+    private:
+        string symptoms, closeContact, testResult, travelStatus, location;
+        
+    public:
+        healthCondition(){}
+    
+        healthCondition(string symp, string CC, string TR, string loc, string TS)
+        {
+            symptoms = symp;
+            closeContact = CC;
+            testResult = TR;
+            travelStatus = TS;
+            location = loc;
+        }
+
+        void setHealthCondition()
+        {
+            cout<<"health condition menu"<<endl;
+            cout<<"Please enter the informations about your health conditions"<<endl;
+            cout<<"Are you having any Covid-19 symptoms?(yes/no)"<<endl;
+            getline(cin, symptoms);
+
+            cout<<"Have you had close contact?(yes/no)"<<endl;
+            getline(cin, closeContact);
+
+            cout<<"What is your test result?(positive/negative)"<<endl;
+            getline(cin, testResult);
+
+            cout<<"Have you travelled outside of campus in the last 14 day?(yes/no)"<<endl;
+            getline(cin, travelStatus);
+
+            cout<<"Where are you currently residing?(KTHO/KTDI/KTC/KTF)"<<endl;
+            getline(cin, location);
+        }
+};
+
 //----------------------------------------------User class---------------------------------------------//
 class User: public loginInfo{ 
     private:
@@ -63,39 +101,6 @@ class User: public loginInfo{
         }
 
 };
-
-//----------------------------------------healthCondition class----------------------------------------//
-class healthCondition{
-    private:
-        int symptoms, closeContact, testResult, travelAbroad;
-        string location;
-    public:
-        healthCondition(){}
-    
-        healthCondition(string symp, string CC, string TR, string loc, string TA)
-        {
-            symptoms = symp;
-            closeContact = CC;
-            testResult = TR;
-            travelAbroad =TA;
-            location = loc;
-        }
-
-        void InputHC()
-        {
-            cout<<"health condition menu"<<endl;
-            cout<<"Please enter the informations about your health conditions"<<endl;
-            cout<<"Are you having any Covid-19 symptoms?(yes/no)"<<endl;
-            getline(cin, symp);
-
-            cout<<"Have you had close contact?(yes/no)"<<endl;
-            
-            cout<<"What is your test result?(positive/negative)"<<endl;
-            
-            
-        }
-};
-
 
 //---------------------------------------loginValdation function---------------------------------------//
 loginReturnData loginValidation(User user[]){
@@ -138,7 +143,7 @@ void getUserData(User user[]){
     ifstream inputFile("User_Data.txt");
 
     inputFile >> USER_NUM;
-                    // ! test & check with cin.ignore() / inputFile.ignore();
+    inputFile.ignore();
 
     for (int k = 0; k < USER_NUM; k++)
     {
