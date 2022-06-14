@@ -101,8 +101,6 @@ class User: public loginInfo{
             cout << "Vaccine     : " << vaccine << endl;
             cout << "Phone Number: " << phoneNumber << endl;
         }
-        
-
 };
 
 //----------------------------------------------User class---------------------------------------------//
@@ -129,6 +127,8 @@ class hotspotInfo{
         string hotspotArea, areaStatus;
         int infectedNum;
     public:
+        hotspotInfo(){}
+
         hotspotInfo(string ha, int infNum)
         {
             hotspotArea = ha;
@@ -141,15 +141,28 @@ class hotspotInfo{
             if(infectedNum <=3){areaStatus = "Safe";}
             else {areaStatus = "Not safe";}
         }
+
+        hotspotInfo operator+(int i){
+            hotspotInfo obj;
+            obj.hotspotArea = hotspotArea;
+            obj.infectedNum = infectedNum + i;
+
+            if(obj.infectedNum <=3){obj.areaStatus = "Safe";}
+            else {obj.areaStatus = "Not safe";}
+
+            return obj;
+        }
+
 };
 
 //function prototype
 loginReturnData userLoginMenu(User []);
 bool adminLoginMenu(admin);
 void appMenu(loginReturnData, User[]);
+void adminAppMenu(hotspotInfo[]);
 
 //-------------------------------------------LoginMenu function-----------------------------------------//
-void LoginMenu(User user[], admin admin_)
+void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
 {
     int choice;
 
@@ -170,8 +183,15 @@ void LoginMenu(User user[], admin admin_)
 
         switch(choice){
             case 1:
-                adminLoginMenu(admin_);
+            {
+                bool adminValid = adminLoginMenu(admin_);
+                if (adminValid == true)
+                {
+                    adminAppMenu(hotspotArray);
+                }
                 break;
+            }
+            
             case 2:
             {
                 loginReturnData userLogData =  userLoginMenu(user);
@@ -186,13 +206,16 @@ void LoginMenu(User user[], admin admin_)
 
             case 4:
                 cout<< "Exiting now..."<<endl;
-                exit(1);
+                //exit(1);
+                goto stop_loop;
             
             default:
                 cout<<"Please enter the valid number(1-3)"<<endl;
                 break;
         }
     }
+
+    stop_loop: ;
 }
 
 //----------------------------------------userLoginMenu function---------------------------------------//
@@ -259,12 +282,36 @@ bool adminLoginMenu(admin admin_){
     return valid;
 }
 
+//---------------------------------------adminAppMenu function---------------------------------------//
+void adminAppMenu(hotspotInfo hotspotArray[]){
+
+    int choice, index, num;
+
+    cout<<"                  ADMIN                   "<<endl;
+    cout<<"------------------------------------------"<<endl;
+    cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+    cout<<"------------------------------------------"<<endl;
+
+    cin >> choice;
+
+    if (choice == 1)
+    {
+        cout << "Enter index of chosen college";
+        cin >> index;
+
+        cout << "Enter amount to add";
+        cin >> num;
+
+        hotspotArray[index] = hotspotArray[index] + num;
+ 
+    }
+
+}
+
 //----------------------------------------getUserData function-----------------------------------------//
 void getUserData(User user[]){
 
     string temp1[6];
-    int temp2;
-
     ifstream inputFile("User_Data.txt");
 
     inputFile >> USER_NUM;
@@ -280,9 +327,6 @@ void getUserData(User user[]){
         User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
         user[k] = userTemp;
     }
-
-
-
     inputFile.close();
 }
 
@@ -339,10 +383,11 @@ int main(){
     int temp2;
     User userArray[3];
     admin admin_("Admin", "Admin123", "001122");
+    hotspotInfo hotspotArray[4] = {hotspotInfo("KTHO",0), hotspotInfo("KTDI",2), hotspotInfo("KTC",6), hotspotInfo("KTF",9)};
 
     getUserData(userArray);
 
-    LoginMenu(userArray, admin_);
+    LoginMenu(userArray, admin_, hotspotArray);
     
     cout << endl;
 
