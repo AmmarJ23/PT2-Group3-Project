@@ -55,6 +55,7 @@ class healthCondition{
 
         void setHealthCondition()
         {
+            cin.ignore();
             cout<<"Health condition menu"<< endl;
             cout<<"Please enter the informations about your health conditions"<< endl;
             cout<<"Are you having any Covid-19 symptoms?(yes/no)"<< endl;
@@ -118,7 +119,6 @@ class admin : public loginInfo{
         string getAdminID(){
             return AdminID;
         }
-
 };
 
 //-------------------------------------------hotspotInfo class-----------------------------------------//
@@ -152,7 +152,6 @@ class hotspotInfo{
 
             return obj;
         }
-
 };
 
 //function prototype
@@ -313,11 +312,11 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
             cout << "Enter index of chosen college -> ";
             cin >> index;
 
-            if (index < 0 && index > 3)
+            do 
             {
                 cout << "Please enter a valid index value - >";
                 cin >> index;
-            }
+            }while(index < 0 || index > 3);
             
 
             cout << "Enter amount to add -> ";
@@ -337,15 +336,12 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
 
 }
 
-
-
 //--------------------------------------------menu function--------------------------------------------//
 void userAppMenu(loginReturnData logData, User user[]){
     int choice;
 
     while (true)
     {
-
         menuPrint(2); //print userAppMenu screen
 
         cin >> choice;
@@ -367,20 +363,20 @@ void userAppMenu(loginReturnData logData, User user[]){
             
         case 5:
             cout<< "Exiting now..."<<endl;
-            exit(1);
+            goto exit_loop;
         
         default:
             cout<<"Please enter the valid number(1-6)"<<endl;
             break;
         }
     }
-    
+
+    exit_loop: ;
 }
 
 //-----------------------------------------menuPrint function------------------------------------------//
 void menuPrint(int n){
     
-
     if (n == 0) // print login menu
     {
         cout<<"\n          LOGIN AND REGISTERATION         "<<endl;
