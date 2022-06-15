@@ -164,7 +164,7 @@ class hotspotInfo{
 void getUserData(User []);
 void LoginMenu(User [], admin , hotspotInfo []);
 loginReturnData userLoginMenu(User []);
-void userRegister(User user[]);
+void userRegister(User[]);
 void userAppMenu(loginReturnData, User[], hotspotInfo[]);
 bool adminLoginMenu(admin);
 void adminAppMenu(hotspotInfo[]);
@@ -227,7 +227,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
             }
                 
             case 3:
-                //UserRegister();
+                userRegister(user);
                 break;
 
             case 4:
@@ -281,15 +281,22 @@ loginReturnData userLoginMenu(User user[]){
 //----------------------------------------userRegister function----------------------------------------//
 void userRegister(User user[]){
     string temp1[6];
+    string tempBin = "";
     int userNumTemp = USER_NUM;
-    ofstream outputFile("User_Data.txt");
-    
-    outputFile <<  USER_NUM + 1;
+    int userSkip = USER_NUM * 5;
 
-    for (int i = 0; i < USER_NUM*5; i++)
+    ofstream out("User_Data.txt");
+    out << USER_NUM + 1;
+    out.close();
+
+    ofstream outputFile("User_Data.txt", std::ios_base::app);
+
+    for (int i = 0; i < userSkip + 1; i++)
     {
-        //outputFile << ;
+        outputFile << "";
     }
+
+    cin.ignore();
 
     cout << "Enter username     : ";
     getline(cin, temp1[0]);
@@ -303,6 +310,8 @@ void userRegister(User user[]){
     getline(cin, temp1[4]);
     cout << "Enter phone number : ";
     getline(cin, temp1[5]);
+
+    outputFile << endl;
 
     for (int i = 0; i < 5; i++)
     {
@@ -320,7 +329,8 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
     while (true)
     {
         menuPrint(2); //print userAppMenu screen
-
+        
+        cout<<"enter the number between 1-5 = ";
         cin >> choice;
 
         switch(choice){
@@ -357,7 +367,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             goto exit_loop;
         
         default:
-            cout<<"Please enter the valid number(1-6)"<<endl;
+            cout<<"Please enter the valid number(1-5)"<<endl;
             break;
         }
     }
@@ -407,7 +417,8 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
     while (true)
     {
         menuPrint(1); //print admin app menu screen
-
+        
+        cout<<"enter the number between 1-2 = ";
         cin >> choice;
 
         if (choice == 1)
@@ -508,6 +519,8 @@ void guideInfo()
     {
         menuPrint(3); //print guideInfo screen
 
+
+        cout<<"enter the number between 1-4 = ";
         cin >> choice;
 
         switch(choice){
