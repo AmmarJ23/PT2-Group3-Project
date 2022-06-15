@@ -141,9 +141,18 @@ class hotspotInfo{
             areaStatusCalc();
         }
 
-        void areaStatusCalc(){
+        void areaStatusCalc()
+        {
             if(infectedNum <=3){areaStatus = "Safe";}
             else {areaStatus = "Not safe";}
+        }
+
+        void print()
+        {
+            cout << hotspotArea <<endl;
+            cout << areaStatus << endl;
+            cout << infectedNum << endl;
+
         }
 
         hotspotInfo operator+(int i){
@@ -355,7 +364,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
         }
             
         case 3:
-            //HotspotInfo();
+            hotspotArray[0].print();
             break;
 
         case 4:
