@@ -384,6 +384,8 @@ void menuPrint(int n){
     
     if (n == 0) // print login menu
     {
+        system("CLS");
+
         cout<<"\n          LOGIN AND REGISTERATION         "<<endl;
         cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
         cout<<"------------------------------------------"<<endl;
