@@ -55,9 +55,9 @@ class healthCondition{
 
         void setHealthCondition()
         {
-            cout<<"health condition menu"<<endl;
-            cout<<"Please enter the informations about your health conditions"<<endl;
-            cout<<"Are you having any Covid-19 symptoms?(yes/no)"<<endl;
+            cout<<"Health condition menu"<< endl;
+            cout<<"Please enter the informations about your health conditions"<< endl;
+            cout<<"Are you having any Covid-19 symptoms?(yes/no)"<< endl;
             getline(cin, symptoms);
 
             cout<<"Have you had close contact?(yes/no)"<<endl;
@@ -158,27 +158,41 @@ class hotspotInfo{
 //function prototype
 loginReturnData userLoginMenu(User []);
 bool adminLoginMenu(admin);
-void appMenu(loginReturnData, User[]);
+void userAppMenu(loginReturnData, User[]);
 void adminAppMenu(hotspotInfo[]);
+void menuPrint(int);
+
+//----------------------------------------getUserData function-----------------------------------------//
+void getUserData(User user[]){
+
+    string temp1[6];
+    ifstream inputFile("User_Data.txt");
+
+    inputFile >> USER_NUM;
+    inputFile.ignore();
+
+    for (int k = 0; k < USER_NUM; k++)
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            getline(inputFile,temp1[i]);
+        }
+        
+        User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
+        user[k] = userTemp;
+    }
+    inputFile.close();
+}
 
 //-------------------------------------------LoginMenu function-----------------------------------------//
 void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
 {
     int choice;
 
-    cout<<"          LOGIN AND REGISTERATION         "<<endl;
-    cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
-  	cout<<"------------------------------------------"<<endl;
-    cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
-    cout<<"------------------------------------------"<<endl;
-    
-    cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Admin Login"<<endl;
-    cout<< setw(10)<<" 2. "<<setw(10)<<"User Login"<<endl;
-    cout<< setw(10)<<" 3. "<<setw(10)<<"Register"<<endl;
-    cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl;
-
     while (true)
     {
+        menuPrint(0); //print loginMenu screen
+
         cin >> choice;
 
         switch(choice){
@@ -195,7 +209,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
             case 2:
             {
                 loginReturnData userLogData =  userLoginMenu(user);
-                appMenu(userLogData, user);
+                userAppMenu(userLogData, user);
                 break;
             }
                 
@@ -222,6 +236,7 @@ loginReturnData userLoginMenu(User user[]){
     string userName, password;
     loginReturnData logReturn;
 
+    cout << "\nEnter user login info" << endl;
     cout << "Enter username: ";
     cin >> userName;
 
@@ -254,6 +269,8 @@ bool adminLoginMenu(admin admin_){
     string userName, password, adminID;
     bool valid;
     
+    cout << "\nEnter admin login info" << endl;
+
     cout << "Enter username: ";
     cin >> userName;
 
@@ -285,66 +302,52 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
 
     int choice, index, num;
 
-    cout<<"                  ADMIN                   "<<endl;
-    cout<<"------------------------------------------"<<endl;
-    cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
-    cout<<"------------------------------------------"<<endl;
-
-    cin >> choice;
-
-    if (choice == 1)
+    while (true)
     {
-        cout << "Enter index of chosen college";
-        cin >> index;
+        menuPrint(1); //print admin app menu screen
 
-        cout << "Enter amount to add";
-        cin >> num;
+        cin >> choice;
 
-        hotspotArray[index] = hotspotArray[index] + num;
- 
-    }
-
-}
-
-//----------------------------------------getUserData function-----------------------------------------//
-void getUserData(User user[]){
-
-    string temp1[6];
-    ifstream inputFile("User_Data.txt");
-
-    inputFile >> USER_NUM;
-    inputFile.ignore();
-
-    for (int k = 0; k < USER_NUM; k++)
-    {
-        for (int i = 0; i < 6; i++)
+        if (choice == 1)
         {
-            getline(inputFile,temp1[i]);
+            cout << "Enter index of chosen college -> ";
+            cin >> index;
+
+            if (index < 0 && index > 3)
+            {
+                cout << "Please enter a valid index value - >";
+                cin >> index;
+            }
+            
+
+            cout << "Enter amount to add -> ";
+            cin >> num;
+
+            hotspotArray[index] = hotspotArray[index] + num;
+        }
+
+        if (choice == 2)
+        {
+            goto exit_loop;
         }
         
-        User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
-        user[k] = userTemp;
     }
-    inputFile.close();
+    
+    exit_loop: ;
+
 }
 
+
+
 //--------------------------------------------menu function--------------------------------------------//
-void appMenu(loginReturnData logData, User user[]){
+void userAppMenu(loginReturnData logData, User user[]){
     int choice;
-    
- 	cout<<"WELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
-  	cout<<"------------------------------------------"<<endl;
-    cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
-    cout<<"------------------------------------------"<<endl;
-  
-    cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Donno"<<endl;
-    cout<< setw(10)<<" 2. "<<setw(10)<<"Health Condition"<<endl;
-    cout<< setw(10)<<" 3. "<<setw(10)<<"HotSpot Info"<<endl;
-    cout<< setw(10)<<" 4. "<<setw(10)<<"Guide Info"<<endl;
-    cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl;
 
     while (true)
     {
+
+        menuPrint(2); //print userAppMenu screen
+
         cin >> choice;
 
         switch(choice){
@@ -374,6 +377,50 @@ void appMenu(loginReturnData logData, User user[]){
     
 }
 
+//-----------------------------------------menuPrint function------------------------------------------//
+void menuPrint(int n){
+    
+
+    if (n == 0) // print login menu
+    {
+        cout<<"\n          LOGIN AND REGISTERATION         "<<endl;
+        cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
+        cout<<"------------------------------------------"<<endl;
+        cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+        cout<<"------------------------------------------"<<endl;
+        
+        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Admin Login"<<endl;
+        cout<< setw(10)<<" 2. "<<setw(10)<<"User Login"<<endl;
+        cout<< setw(10)<<" 3. "<<setw(10)<<"Register"<<endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl;
+    }
+
+    if (n == 1) //print admin menu
+    {
+        cout<<"\n                  ADMIN                   "<<endl;
+        cout<<"------------------------------------------"<<endl;
+        cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+        cout<<"------------------------------------------"<<endl;
+
+        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Edit number of cases"<<endl;
+        cout<< setw(10)<<" 2. "<<setw(10)<<"Exit"<<endl;
+    }
+
+    if (n == 2) // print app menu
+    {
+        cout<<"\nWELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
+        cout<<"------------------------------------------"<<endl;
+        cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+        cout<<"------------------------------------------"<<endl;
+    
+        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Donno"<<endl;
+        cout<< setw(10)<<" 2. "<<setw(10)<<"Health Condition"<<endl;
+        cout<< setw(10)<<" 3. "<<setw(10)<<"HotSpot Info"<<endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"Guide Info"<<endl;
+        cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl;
+    }
+}
+
 //--------------------------------------------main function--------------------------------------------//
 int main(){
     
@@ -382,12 +429,9 @@ int main(){
     User userArray[3];
     admin admin_("Admin", "Admin123", "001122");
     hotspotInfo hotspotArray[4] = {hotspotInfo("KTHO",0), hotspotInfo("KTDI",2), hotspotInfo("KTC",6), hotspotInfo("KTF",9)};
-
     getUserData(userArray);
 
     LoginMenu(userArray, admin_, hotspotArray);
-    
-    cout << endl;
 
     system("PAUSE");
     return 0;
