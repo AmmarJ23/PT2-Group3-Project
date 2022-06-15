@@ -72,7 +72,11 @@ class healthCondition{
 
             cout<<"Where are you currently residing?(KTHO/KTDI/KTC/KTF)"<<endl;
             getline(cin, location);
+
         }// location == ktdi/ktho && TR == positive{+1 dekat infectednummber dalam hotspotinfo}
+
+        string getTestResult(){return testResult;}
+        string getLocation(){return location;}
 };
 
 //----------------------------------------------User class---------------------------------------------//
@@ -152,12 +156,14 @@ class hotspotInfo{
 
             return obj;
         }
+
+        string getHotspotArea(){return hotspotArea;}
 };
 
 //function prototype
 loginReturnData userLoginMenu(User []);
 bool adminLoginMenu(admin);
-void userAppMenu(loginReturnData, User[]);
+void userAppMenu(loginReturnData, User[], hotspotInfo[]);
 void adminAppMenu(hotspotInfo[]);
 void menuPrint(int);
 
@@ -210,7 +216,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
                 loginReturnData userLogData =  userLoginMenu(user);
                 if (userLogData.valid == true)
                 {
-                    userAppMenu(userLogData, user);
+                    userAppMenu(userLogData, user, hotspotArray);
                 }
                 break;
             }
@@ -342,7 +348,7 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
 }
 
 //--------------------------------------------menu function--------------------------------------------//
-void userAppMenu(loginReturnData logData, User user[]){
+void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[]){
     int choice;
 
     while (true)
@@ -355,8 +361,22 @@ void userAppMenu(loginReturnData logData, User user[]){
         case 1:
             break;
         case 2:
+        {
             user[logData.userIndex].userHealth.setHealthCondition();
+
+            if (user[logData.userIndex].userHealth.getTestResult() == "positive")
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if(user[logData.userIndex].userHealth.getLocation().compare(hotspotArray[i].getHotspotArea()) == 0)
+                    {
+                        hotspotArray[i] + 1;
+                    }
+                }
+            }
+
             break;
+        }
             
         case 3:
             //HotspotInfo();
