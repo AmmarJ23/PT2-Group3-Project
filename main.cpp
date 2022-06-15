@@ -208,7 +208,10 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
             case 2:
             {
                 loginReturnData userLogData =  userLoginMenu(user);
-                userAppMenu(userLogData, user);
+                if (userLogData.valid == true)
+                {
+                    userAppMenu(userLogData, user);
+                }
                 break;
             }
                 
@@ -234,6 +237,8 @@ loginReturnData userLoginMenu(User user[]){
 
     string userName, password;
     loginReturnData logReturn;
+
+    logReturn.valid = false;
 
     cout << "\nEnter user login info" << endl;
     cout << "Enter username: ";
