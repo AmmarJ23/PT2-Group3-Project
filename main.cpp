@@ -160,89 +160,6 @@ class hotspotInfo{
         string getHotspotArea(){return hotspotArea;}
 };
 
-//--------------------------------------------guideInfo class------------------------------------------//
-class guideInfo()
-{   
-    
-    private:
-    
-    public:
-    int choice;
-
-    while (true)
-    {
-        menuPrint(3); //print guideInfo screen
-
-        cin >> choice;
-
-        switch(choice){
-            case 1:
-                {
-                    cout<<"CARE PROVIDED IN UTM FOR COV-19 PATIENTS"<<endl;
-                    cout<<"----------------------------------------------"<<endl;
-                    cout<<"COMPLIMENTARY MEALS(3 TIMES PER DAY)"<<endl;
-                    cout<<"COMPLIMENTARY SELF TEST KIT(AFTER QUARANTINE IS COMPLETED)"<<endl;
-                    cout<<"COMPLIMENTARY MEDICINE(FOR SYMPTOMS)"<<endl;
-                    
-                    cout<<"-------------------------------------------"<<endl;
-                    cout<<"FREE SWAB TEST AND QUARANTINE AREA PROVIDED"<<endl;
-                    cout<<"AT KOLEJ TUN RAZAK(KTR)"<<endl;
-                    cout<<"-------------------------------------------"<<endl;
-                    cout<<"STUDENTS MUST REGISTER FIRST IN ORDER TO ACCESS THESE PRIVILEDGES"<<endl;
-                    
-                    
-                    
-                    break;
-                }
-
-            case 2:
-                {
-                    cout<<"HOTLINES NUMBERS"<<endl;
-                    cout<<"----------------"<<endl;
-                    cout<<"COVID-19 HOTLINE          ="<<setw(15)<<"+60133340646"<<endl;
-                    cout<<"UTM AMBULANCE             ="<<setw(15)<<"+6075530999"<<endl;
-                    cout<<"UTM HEALTH CENTRE         ="<<setw(15)<<"+60197756765"<<endl;
-                    cout<<"STUDENT AFFAIRS HOTLINE 1 ="<<setw(15)<<"+6075530279"<<endl;
-                    cout<<"STUDENT AFFAIRS HOTLINE 2 ="<<setw(15)<<"+6075530265"<<endl;
-
-                    break;
-                }
-            
-            case 3:
-                {
-                    cout<<"Protocol for positive cases:"<<endl;
-
-                    cout<<"The isolation order for patients infected with ALL variants are as follows:"<<endl;
-                    cout<<"1. Seven days for individuals who are fully vaccinated and have no symptoms."<<endl;
-                    cout<<"2. 10 days for individuals who have incomplete vaccinations, or are symptomatic cases."<<endl<<endl;
-
-                    cout<<"A health assessment will be made before discharge can be granted."<<endl<<endl;
-
-                    cout<<"Protocol for close contacts:"<<endl;
-
-                    cout<<"Isolation orders for close contacts of positive cases, including Omicron cases, are as follows:"<<endl;
-
-                    cout<<"1. Five days for individuals who have already received the booster dose."<<endl;
-                    cout<<"2. Seven days for individuals who are fully vaccinated, and those who are partially or are not vaccinated."<<endl;
-                    cout<<"3. If symptomatic, take the RTK-Ag test, either on your own or at a nearby health facility for further treatment."<<endl:
-                    cout<<"4. Results of the self-test must be submitted in the Mysejahtera application. "<<endl;
-                    cout<<"5. Perform the RTK-Ag test, either at a government or private facility, on the fifth day and the seventh day (for those undergoing seven days of isolation)."<<endl;
-                    cout<<"6. If the test results are negative and the individual is asymptomatic, a quarantine release will be given on the same day the test is performed."<<endl;
-                    break;
-                }
-
-            case 4:
-                cout<< "Returning to AppMenu..."<<endl;
-                userAppMenu();
-                break;     
-        
-            default:
-                cout<<"Please enter the valid number(1-4)"<<endl;
-                break;
-        }
-    }
-};
-
 //function prototype
 void getUserData(User []);
 void LoginMenu(User [], admin , hotspotInfo []);
@@ -252,6 +169,7 @@ void userAppMenu(loginReturnData, User[], hotspotInfo[]);
 bool adminLoginMenu(admin);
 void adminAppMenu(hotspotInfo[]);
 void menuPrint(int);
+void guideInfo();
 
 //----------------------------------------getUserData function-----------------------------------------//
 void getUserData(User user[]){
@@ -283,7 +201,8 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
     while (true)
     {
         menuPrint(0); //print loginMenu screen
-
+        
+        cout<<"enter the number between 1-4 = ";
         cin >> choice;
 
         switch(choice){
@@ -316,7 +235,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
                 goto stop_loop;
             
             default:
-                cout<<"Please enter the valid number(1-3)"<<endl;
+                cout<<"Please enter the valid number(1-4)"<<endl;
                 break;
         }
     }
@@ -369,7 +288,7 @@ void userRegister(User user[]){
 
     for (int i = 0; i < USER_NUM*5; i++)
     {
-        outputFile << ;
+        //outputFile << ;
     }
 
     cout << "Enter username     : ";
@@ -430,7 +349,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             break;
 
         case 4:
-            //GuideInfo();
+            guideInfo();
             break;
             
         case 5:
@@ -578,6 +497,92 @@ void menuPrint(int n){
         cout<< setw(10)<<" 4. "<<setw(10)<<"Return"<<endl;
     }
 }
+
+//--------------------------------------------guideInfo function------------------------------------------//
+void guideInfo()
+{   
+    
+    int choice;
+
+    while (true)
+    {
+        menuPrint(3); //print guideInfo screen
+
+        cin >> choice;
+
+        switch(choice){
+            case 1:
+                {
+                    system("CLS");
+                    
+                    cout<<"CARE PROVIDED IN UTM FOR COV-19 PATIENTS"<<endl;
+                    cout<<"----------------------------------------------"<<endl;
+                    cout<<"COMPLIMENTARY MEALS(3 TIMES PER DAY)"<<endl;
+                    cout<<"COMPLIMENTARY SELF TEST KIT(AFTER QUARANTINE IS COMPLETED)"<<endl;
+                    cout<<"COMPLIMENTARY MEDICINE(FOR SYMPTOMS)"<<endl;
+                    
+                    cout<<"-------------------------------------------"<<endl;
+                    cout<<"FREE SWAB TEST AND QUARANTINE AREA PROVIDED"<<endl;
+                    cout<<"AT KOLEJ TUN RAZAK(KTR)"<<endl;
+                    cout<<"-------------------------------------------"<<endl;
+                    cout<<"STUDENTS MUST REGISTER FIRST IN ORDER TO ACCESS THESE PRIVILEDGES"<<endl;
+                    break;
+                }
+
+            case 2:
+                {
+                    system("CLS");
+                    
+                    cout<<"HOTLINES NUMBERS"<<endl;
+                    cout<<"----------------"<<endl;
+                    cout<<"COVID-19 HOTLINE          ="<<setw(15)<<"+60133340646"<<endl;
+                    cout<<"UTM AMBULANCE             ="<<setw(15)<<"+6075530999"<<endl;
+                    cout<<"UTM HEALTH CENTRE         ="<<setw(15)<<"+60197756765"<<endl;
+                    cout<<"STUDENT AFFAIRS HOTLINE 1 ="<<setw(15)<<"+6075530279"<<endl;
+                    cout<<"STUDENT AFFAIRS HOTLINE 2 ="<<setw(15)<<"+6075530265"<<endl;
+
+                    break;
+                }
+            
+            case 3:
+                {
+                    system("CLS");
+                    
+                    cout<<"Protocol for positive cases:"<<endl;
+
+                    cout<<"The isolation order for patients infected with ALL variants are as follows:"<<endl;
+                    cout<<"1. Seven days for individuals who are fully vaccinated and have no symptoms."<<endl;
+                    cout<<"2. 10 days for individuals who have incomplete vaccinations, or are symptomatic cases."<<endl<<endl;
+
+                    cout<<"A health assessment will be made before discharge can be granted."<<endl<<endl;
+
+                    cout<<"Protocol for close contacts:"<<endl;
+
+                    cout<<"Isolation orders for close contacts of positive cases, including Omicron cases, are as follows:"<<endl;
+
+                    cout<<"1. Five days for individuals who have already received the booster dose."<<endl;
+                    cout<<"2. Seven days for individuals who are fully vaccinated, and those who are partially or are not vaccinated."<<endl;
+                    cout<<"3. If symptomatic, take the RTK-Ag test, either on your own or at a nearby health facility for further treatment."<<endl;
+                    cout<<"4. Results of the self-test must be submitted in the Mysejahtera application. "<<endl;
+                    cout<<"5. Perform the RTK-Ag test, either at a government or private facility, on the fifth day and the seventh day (for those undergoing seven days of isolation)."<<endl;
+                    cout<<"6. If the test results are negative and the individual is asymptomatic, a quarantine release will be given on the same day the test is performed."<<endl;
+                    break;
+                }
+
+            case 4:
+                cout<< "Returning to AppMenu..."<<endl;
+                goto exit_loop;
+                break;     
+        
+            default:
+                cout<<"Please enter the valid number(1-4)"<<endl;
+                break;
+        }
+    }
+
+    exit_loop: ;
+};
+
 
 //--------------------------------------------main function--------------------------------------------//
 int main(){
