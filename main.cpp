@@ -1,5 +1,10 @@
 // Group 3
-// Updated Draft 2 Class Diagram: 
+// Members: 1. Afiq FAhmi Bin Roslan    A21EC0153
+//          2. Azhan Haniff Bin Azni    A21EC0017
+//          3. Ryan Lim Shen            A21EC0223
+//          4. Ammar bin Jamalludin     A21EC0160
+
+// Updated Draft 2 Class Diagram: https://drive.google.com/file/d/105DjIRSmhYw7dDC1cr5lvo4c5V_vX667/view?usp=sharing
 
 #include <iostream>
 #include <string>
