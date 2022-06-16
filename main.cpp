@@ -289,7 +289,7 @@ loginReturnData userLoginMenu(User user[]){
 
 //----------------------------------------userRegister function----------------------------------------//
 void userRegister(User user[]){
-    string temp1[6];
+    string temp1[6];;
     string tempBin = "";
     int userNumTemp = USER_NUM;
     int userSkip = USER_NUM * 5;
