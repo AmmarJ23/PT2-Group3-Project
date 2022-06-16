@@ -149,10 +149,10 @@ class hotspotInfo{
         }
 
         void print()
-        {
-            cout << hotspotArea <<endl;
-            cout << areaStatus << endl;
-            cout << infectedNum << endl;
+        {   
+            cout << "COVID-19 INFO FOR :" << hotspotArea << endl;
+            cout << "Area Status: " << areaStatus << endl;
+            cout << "Number of Infected People : " << infectedNum << endl << endl;
 
         }
 
@@ -214,6 +214,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
         
         cout<<"enter the number between 1-4 = ";
         cin >> choice;
+        cout<<endl;
 
         switch(choice){
             case 1:
@@ -242,7 +243,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
 
             case 4:
                 cout<< "Exiting now..."<<endl;
-                goto stop_loop;
+                goto exit_loop;
             
             default:
                 cout<<"Please enter the valid number(1-4)"<<endl;
@@ -250,7 +251,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
         }
     }
 
-    stop_loop: ;
+    exit_loop: ;
 }
 
 //----------------------------------------userLoginMenu function---------------------------------------//
@@ -324,7 +325,7 @@ void userRegister(User user[]){
     cout << "Enter phone number : ";
     getline(cin, temp1[5]);
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
         outputFile << temp1[i] << endl;
     }
@@ -352,11 +353,10 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
         
         cout<<"enter the number between 1-5 = ";
         cin >> choice;
+        cout << endl;
 
         switch(choice){
         case 1:
-            break;
-        case 2:
         {
             user[logData.userIndex].userHealth.setHealthCondition();
 
@@ -374,15 +374,18 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             break;
         }
             
-        case 3:
-            hotspotArray[0].print();
+        case 2:
+            for (int i = 0; i < 4; i++)
+            {
+                hotspotArray[i].print();
+            }
             break;
 
-        case 4:
+        case 3:
             guideInfo();
             break;
             
-        case 5:
+        case 4:
             cout<< "Exiting now..."<<endl;
             goto exit_loop;
         
@@ -440,6 +443,7 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
         
         cout<<"enter the number between 1-2 = ";
         cin >> choice;
+        cout << endl;
 
         if (choice == 1)
         {
@@ -507,11 +511,10 @@ void menuPrint(int n){
         cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
         cout<<"------------------------------------------"<<endl;
     
-        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Donno"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"Health Condition"<<endl;
-        cout<< setw(10)<<" 3. "<<setw(10)<<"HotSpot Info"<<endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Guide Info"<<endl;
-        cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl;
+        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Health Condition"<<endl;
+        cout<< setw(10)<<" 2. "<<setw(10)<<"HotSpot Info"<<endl;
+        cout<< setw(10)<<" 3. "<<setw(10)<<"Guide Info"<<endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl;
     }
 
     if (n == 3)
