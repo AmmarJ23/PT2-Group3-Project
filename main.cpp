@@ -1,3 +1,6 @@
+// Group 3
+// Updated Draft 2 Class Diagram: 
+
 #include <iostream>
 #include <string>
 #include <fstream>

@@ -15,6 +15,83 @@ struct loginReturnData
     int userIndex;
 };
 
+//-----------------------------------------menuPrint class------------------------------------------//
+class menuPrint{
+
+    public:
+    
+        void loginMenuPrint() // print login menu
+        {
+            system("CLS");
+
+            cout<<"\n          LOGIN AND REGISTERATION         "<<endl;
+            cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
+            cout<<"------------------------------------------"<<endl;
+            cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+            cout<<"------------------------------------------"<<endl;
+            
+            cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Admin Login"<<endl;
+            cout<< setw(10)<<" 2. "<<setw(10)<<"User Login"<<endl;
+            cout<< setw(10)<<" 3. "<<setw(10)<<"Register"<<endl;
+            cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl<<endl;
+        }
+
+        void HotspotPrint() //print user menu
+        {
+            system("CLS");
+            
+            cout<<"\n              HOTSPOT INFO              "<<endl;
+            cout<<"------------------------------------------"<<endl;
+            cout<<"      INFORMATION AND DATA OF COV-19      "<<endl;
+            cout<<"------------------------------------------"<<endl;
+
+        }
+
+        void adminMenuPrint() //print admin menu
+        {
+            system("CLS");
+            
+            cout<<"\n                  ADMIN                   "<<endl;
+            cout<<"------------------------------------------"<<endl;
+            cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+            cout<<"------------------------------------------"<<endl;
+
+            cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Edit number of cases"<<endl;
+            cout<< setw(10)<<" 2. "<<setw(10)<<"Exit"<<endl<<endl;
+        }
+
+        void userAppMenuPrint() // print app menu
+        {   
+            system("CLS");
+            
+            cout<<"\nWELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
+            cout<<"------------------------------------------"<<endl;
+            cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+            cout<<"------------------------------------------"<<endl;
+        
+            cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Health Condition Self-Check"<<endl;
+            cout<< setw(10)<<" 2. "<<setw(10)<<"HotSpot Info"<< endl;
+            cout<< setw(10)<<" 3. "<<setw(10)<<"Guide Info"<< endl;
+            cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl << endl;
+        }
+
+        void guideInfoMenuPrint()
+        {   
+            system("CLS");
+
+            cout<<"\n             GUIDE INFO         "<<endl;
+            cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
+            cout<<"------------------------------------------"<<endl;
+            cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
+            cout<<"------------------------------------------"<<endl;
+            
+            cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Facilities"<<endl;
+            cout<< setw(10)<<" 2. "<<setw(10)<<"Hotline Numbers"<<endl;
+            cout<< setw(10)<<" 3. "<<setw(10)<<"Standard Operation Procedure (SOP)"<<endl;
+            cout<< setw(10)<<" 4. "<<setw(10)<<"Return"<<endl<<endl;
+        }
+};
+
 //-------------------------------------------loginInfo class-------------------------------------------//
 class loginInfo{
     protected:
@@ -101,7 +178,8 @@ class User: public loginInfo{
             phoneNumber = pN;
         }
 
-        void print(){
+        void print()
+        {
             cout << "Name        : " << name << endl;
             cout << "Address     : " << address << endl;
             cout << "Vaccine     : " << vaccine << endl;
@@ -131,6 +209,8 @@ class hotspotInfo{
     private:
         string hotspotArea, areaStatus;
         int infectedNum;
+        menuPrint printout;
+
     public:
         hotspotInfo(){}
 
@@ -150,7 +230,9 @@ class hotspotInfo{
 
         void print()
         {   
-            cout << "COVID-19 INFO FOR :" << hotspotArea << endl;
+            printout.HotspotPrint();
+
+            cout << "Area/College :" << hotspotArea << endl;
             cout << "Area Status: " << areaStatus << endl;
             cout << "Number of Infected People : " << infectedNum << endl << endl;
 
@@ -178,7 +260,6 @@ void userRegister(User[]);
 void userAppMenu(loginReturnData, User[], hotspotInfo[]);
 bool adminLoginMenu(admin);
 void adminAppMenu(hotspotInfo[]);
-void menuPrint(int);
 void guideInfo();
 
 //----------------------------------------getUserData function-----------------------------------------//
@@ -221,11 +302,12 @@ void getUserData(User user[]){
 void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
 {
     int choice;
+    menuPrint menu;
 
     while (true)
     {
-        menuPrint(0); //print loginMenu screen
-        
+        menu.loginMenuPrint(); //print loginMenu screen
+
         cout<<"Enter the number between 1-4 = ";
         cin >> choice;
         cout<<endl;
@@ -375,10 +457,11 @@ void userRegister(User user[]){
 void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[]){
 
     int choice;
+    menuPrint menu;
 
     while (true)
     {
-        menuPrint(2); //print userAppMenu screen
+        menu.userAppMenuPrint(); //print userAppMenu screen
         
         cout<<"Enter a number between 1-5 = ";
         cin >> choice;
@@ -470,10 +553,11 @@ bool adminLoginMenu(admin admin_){
 void adminAppMenu(hotspotInfo hotspotArray[]){
 
     int choice, index, num;
+    menuPrint menu;
 
     while (true)
     {
-        menuPrint(1); //print admin app menu screen
+        menu.adminMenuPrint(); //print admin app menu screen
         
         cout<<"Enter a number between 1-2 = ";
         cin >> choice;
@@ -510,79 +594,17 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
 
 }
 
-//-----------------------------------------menuPrint function------------------------------------------//
-void menuPrint(int n){
-    
-    if (n == 0) // print login menu
-    {
-        system("CLS");
-
-        cout<<"\n          LOGIN AND REGISTERATION         "<<endl;
-        cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
-        cout<<"------------------------------------------"<<endl;
-        cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
-        cout<<"------------------------------------------"<<endl;
-        
-        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Admin Login"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"User Login"<<endl;
-        cout<< setw(10)<<" 3. "<<setw(10)<<"Register"<<endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl<<endl;
-    }
-
-    if (n == 1) //print admin menu
-    {
-        system("CLS");
-        
-        cout<<"\n                  ADMIN                   "<<endl;
-        cout<<"------------------------------------------"<<endl;
-        cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
-        cout<<"------------------------------------------"<<endl;
-
-        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Edit number of cases"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"Exit"<<endl<<endl;
-    }
-
-    if (n == 2) // print app menu
-    {   
-        system("CLS");
-        
-        cout<<"\nWELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
-        cout<<"------------------------------------------"<<endl;
-        cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
-        cout<<"------------------------------------------"<<endl;
-    
-        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Health Condition Self-Check"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"HotSpot Info"<< endl;
-        cout<< setw(10)<<" 3. "<<setw(10)<<"Guide Info"<< endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl << endl;
-    }
-
-    if (n == 3)
-    {   
-        system("CLS");
-
-        cout<<"\n             GUIDE INFO         "<<endl;
-        cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
-        cout<<"------------------------------------------"<<endl;
-        cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
-        cout<<"------------------------------------------"<<endl;
-        
-        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Facilities"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"Hotline Numbers"<<endl;
-        cout<< setw(10)<<" 3. "<<setw(10)<<"Standard Operation Procedure (SOP)"<<endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Return"<<endl<<endl;
-    }
-}
 
 //--------------------------------------------guideInfo function------------------------------------------//
 void guideInfo()
 {   
     
     int choice;
+    menuPrint menu;
 
     while (true)
     {
-        menuPrint(3); //print guideInfo screen
+        menu.guideInfoMenuPrint(); //print guideInfo screen
 
 
         cout<<"Enter the number between 1-4 = ";
@@ -682,3 +704,5 @@ int main(){
     system("PAUSE");
     return 0;
 }
+
+// Updated class diagram for draft 2: 

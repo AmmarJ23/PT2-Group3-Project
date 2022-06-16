@@ -1,10 +1,30 @@
-1
-0
-0
-0
-user
-pass
-name
-add
-vax
-00000
+5
+Username1
+Username1Password
+John Doe
+123, Street name, 0000, District
+Pfizer
+11111
+Username2
+Username2Password
+Dave Cave
+321, Street name, 1111, District
+Moderna
+22222
+Username3
+Username3Password
+Aaaa Bbbb
+333, Street name, 2222, District
+AstraZeneca
+333333
+Username4
+Username4Password
+Aaaa Bbbb
+st4
+vaccine
+Username5
+Username5Password
+Bbbb Cccc
+st5
+vaccine 5
+555555
