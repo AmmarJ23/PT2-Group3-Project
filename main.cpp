@@ -615,10 +615,12 @@ void guideInfo()
 
 //--------------------------------------------main function--------------------------------------------//
 int main(){
-    
+    ifstream inFile("User_Data.txt");
+    inFile >> USER_NUM;
+    inFile.close();
+
     string temp1[5];
-    int temp2;
-    User userArray[3];
+    User userArray[USER_NUM];
     admin admin_("Admin", "Admin123", "001122");
     hotspotInfo hotspotArray[4] = {hotspotInfo("KTHO",0), hotspotInfo("KTDI",2), hotspotInfo("KTC",6), hotspotInfo("KTF",9)};
     getUserData(userArray);
@@ -633,3 +635,7 @@ int main(){
 // ! https://stackoverflow.com/questions/42238712/change-array-size-c
 
 // ! get USER_NUM first before declaring User userArray
+
+// ! not use userArray[USER_NUM]
+// ! instead use a large userArray
+// ! then just add the user to array user[i or USER_NUM] = newUserTemp
