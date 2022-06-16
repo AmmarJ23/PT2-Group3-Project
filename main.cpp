@@ -366,7 +366,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
                 {
                     if(user[logData.userIndex].userHealth.getLocation().compare(hotspotArray[i].getHotspotArea()) == 0)
                     {
-                        hotspotArray[i] + 1;
+                        hotspotArray[i] = hotspotArray[i] + 1;
                     }
                 }
             }
