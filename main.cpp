@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <cstdio>
 using namespace std;
 
 //global variable for number of users
@@ -289,20 +290,23 @@ loginReturnData userLoginMenu(User user[]){
 
 //----------------------------------------userRegister function----------------------------------------//
 void userRegister(User user[]){
-    string temp1[6];;
+    string temp1[6];
     string tempBin = "";
     int userNumTemp = USER_NUM;
     int userSkip = USER_NUM * 5;
 
-    ofstream out("User_Data.txt");
-    out << USER_NUM + 1;
-    out.close();
+    ofstream outputFile("User_DataTemp.txt");
+    outputFile << USER_NUM + 1 << endl;
 
-    ofstream outputFile("User_Data.txt", std::ios_base::app);
+    //ofstream outputFile("User_Data.txt", std::ios_base::app);
+    ifstream inputFile("User_Data.txt");
 
-    for (int i = 0; i < userSkip + 1; i++)
+    getline(inputFile,tempBin);
+
+    for (int i = 0; i < userSkip + 2; i++)
     {
-        outputFile << "";
+        getline(inputFile, tempBin);
+        outputFile << tempBin << endl;
     }
 
     cin.ignore();
@@ -320,14 +324,18 @@ void userRegister(User user[]){
     cout << "Enter phone number : ";
     getline(cin, temp1[5]);
 
-    outputFile << endl;
-
     for (int i = 0; i < 5; i++)
     {
         outputFile << temp1[i] << endl;
     }
-    
+
+    inputFile.close();
     outputFile.close();
+    remove("User_Data.txt");
+    
+    rename("User_DataTemp.txt", "User_Data.txt");
+
+    USER_NUM++;
 }
 
 //-----------------------------------------userAppMenu function----------------------------------------//
@@ -605,13 +613,12 @@ void guideInfo()
     exit_loop: ;
 };
 
-
 //--------------------------------------------main function--------------------------------------------//
 int main(){
     
     string temp1[5];
     int temp2;
-    User userArray[3];
+    User userArray[USER_NUM];
     admin admin_("Admin", "Admin123", "001122");
     hotspotInfo hotspotArray[4] = {hotspotInfo("KTHO",0), hotspotInfo("KTDI",2), hotspotInfo("KTC",6), hotspotInfo("KTF",9)};
     getUserData(userArray);
@@ -621,3 +628,6 @@ int main(){
     system("PAUSE");
     return 0;
 }
+
+// ! change size of User userArray[USER_NUM] once after register
+// ! https://stackoverflow.com/questions/42238712/change-array-size-c
