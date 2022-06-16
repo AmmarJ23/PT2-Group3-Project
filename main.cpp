@@ -303,7 +303,7 @@ void userRegister(User user[]){
 
     getline(inputFile,tempBin);
 
-    for (int i = 0; i < userSkip + 2; i++)
+    for (int i = 0; i < userSkip + 3; i++)
     {
         getline(inputFile, tempBin);
         outputFile << tempBin << endl;
@@ -334,6 +334,9 @@ void userRegister(User user[]){
     remove("User_Data.txt");
     
     rename("User_DataTemp.txt", "User_Data.txt");
+
+    User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
+    user[USER_NUM] = userTemp;
 
     USER_NUM++;
 }
@@ -620,7 +623,7 @@ int main(){
     inFile.close();
 
     string temp1[5];
-    User userArray[USER_NUM];
+    User userArray[100];
     admin admin_("Admin", "Admin123", "001122");
     hotspotInfo hotspotArray[4] = {hotspotInfo("KTHO",0), hotspotInfo("KTDI",2), hotspotInfo("KTC",6), hotspotInfo("KTF",9)};
     getUserData(userArray);
