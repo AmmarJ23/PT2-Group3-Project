@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <cstdio>
 using namespace std;
 
 //global variable for number of users
@@ -148,10 +149,10 @@ class hotspotInfo{
         }
 
         void print()
-        {
-            cout << hotspotArea <<endl;
-            cout << areaStatus << endl;
-            cout << infectedNum << endl;
+        {   
+            cout << "COVID-19 INFO FOR :" << hotspotArea << endl;
+            cout << "Area Status: " << areaStatus << endl;
+            cout << "Number of Infected People : " << infectedNum << endl << endl;
 
         }
 
@@ -213,6 +214,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
         
         cout<<"enter the number between 1-4 = ";
         cin >> choice;
+        cout<<endl;
 
         switch(choice){
             case 1:
@@ -241,7 +243,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
 
             case 4:
                 cout<< "Exiting now..."<<endl;
-                goto stop_loop;
+                goto exit_loop;
             
             default:
                 cout<<"Please enter the valid number(1-4)"<<endl;
@@ -249,7 +251,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
         }
     }
 
-    stop_loop: ;
+    exit_loop: ;
 }
 
 //----------------------------------------userLoginMenu function---------------------------------------//
@@ -294,15 +296,18 @@ void userRegister(User user[]){
     int userNumTemp = USER_NUM;
     int userSkip = USER_NUM * 5;
 
-    ofstream out("User_Data.txt");
-    out << USER_NUM + 1;
-    out.close();
+    ofstream outputFile("User_DataTemp.txt");
+    outputFile << USER_NUM + 1 << endl;
 
-    ofstream outputFile("User_Data.txt", std::ios_base::app);
+    //ofstream outputFile("User_Data.txt", std::ios_base::app);
+    ifstream inputFile("User_Data.txt");
 
-    for (int i = 0; i < userSkip + 1; i++)
+    getline(inputFile,tempBin);
+
+    for (int i = 0; i < userSkip + 3; i++)
     {
-        outputFile << "";
+        getline(inputFile, tempBin);
+        outputFile << tempBin << endl;
     }
 
     cin.ignore();
@@ -320,14 +325,21 @@ void userRegister(User user[]){
     cout << "Enter phone number : ";
     getline(cin, temp1[5]);
 
-    outputFile << endl;
-
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
         outputFile << temp1[i] << endl;
     }
-    
+
+    inputFile.close();
     outputFile.close();
+    remove("User_Data.txt");
+    
+    rename("User_DataTemp.txt", "User_Data.txt");
+
+    User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
+    user[USER_NUM] = userTemp;
+
+    USER_NUM++;
 }
 
 //-----------------------------------------userAppMenu function----------------------------------------//
@@ -341,11 +353,10 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
         
         cout<<"enter the number between 1-5 = ";
         cin >> choice;
+        cout << endl;
 
         switch(choice){
         case 1:
-            break;
-        case 2:
         {
             user[logData.userIndex].userHealth.setHealthCondition();
 
@@ -355,7 +366,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
                 {
                     if(user[logData.userIndex].userHealth.getLocation().compare(hotspotArray[i].getHotspotArea()) == 0)
                     {
-                        hotspotArray[i] + 1;
+                        hotspotArray[i] = hotspotArray[i] + 1;
                     }
                 }
             }
@@ -363,15 +374,18 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             break;
         }
             
-        case 3:
-            hotspotArray[0].print();
+        case 2:
+            for (int i = 0; i < 4; i++)
+            {
+                hotspotArray[i].print();
+            }
             break;
 
-        case 4:
+        case 3:
             guideInfo();
             break;
             
-        case 5:
+        case 4:
             cout<< "Exiting now..."<<endl;
             goto exit_loop;
         
@@ -429,6 +443,7 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
         
         cout<<"enter the number between 1-2 = ";
         cin >> choice;
+        cout << endl;
 
         if (choice == 1)
         {
@@ -496,11 +511,10 @@ void menuPrint(int n){
         cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
         cout<<"------------------------------------------"<<endl;
     
-        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Donno"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"Health Condition"<<endl;
-        cout<< setw(10)<<" 3. "<<setw(10)<<"HotSpot Info"<<endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Guide Info"<<endl;
-        cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl;
+        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Health Condition"<<endl;
+        cout<< setw(10)<<" 2. "<<setw(10)<<"HotSpot Info"<<endl;
+        cout<< setw(10)<<" 3. "<<setw(10)<<"Guide Info"<<endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl;
     }
 
     if (n == 3)
@@ -605,13 +619,14 @@ void guideInfo()
     exit_loop: ;
 };
 
-
 //--------------------------------------------main function--------------------------------------------//
 int main(){
-    
+    ifstream inFile("User_Data.txt");
+    inFile >> USER_NUM;
+    inFile.close();
+
     string temp1[5];
-    int temp2;
-    User userArray[3];
+    User userArray[100];
     admin admin_("Admin", "Admin123", "001122");
     hotspotInfo hotspotArray[4] = {hotspotInfo("KTHO",0), hotspotInfo("KTDI",2), hotspotInfo("KTC",6), hotspotInfo("KTF",9)};
     getUserData(userArray);
