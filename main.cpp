@@ -633,12 +633,3 @@ int main(){
     system("PAUSE");
     return 0;
 }
-
-// ! change size of User userArray[USER_NUM] once after register
-// ! https://stackoverflow.com/questions/42238712/change-array-size-c
-
-// ! get USER_NUM first before declaring User userArray
-
-// ! not use userArray[USER_NUM]
-// ! instead use a large userArray
-// ! then just add the user to array user[i or USER_NUM] = newUserTemp
