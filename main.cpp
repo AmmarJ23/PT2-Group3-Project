@@ -1,5 +1,5 @@
 // Group 3
-// Members: 1. Afiq FAhmi Bin Roslan    A21EC0153
+// Members: 1. Afiq Fahmi Bin Roslan    A21EC0153
 //          2. Azhan Haniff Bin Azni    A21EC0017
 //          3. Ryan Lim Shen            A21EC0223
 //          4. Ammar bin Jamalludin     A21EC0160
