@@ -187,19 +187,33 @@ void getUserData(User user[]){
     string temp1[6];
     ifstream inputFile("User_Data.txt");
 
-    inputFile >> USER_NUM;
-    inputFile.ignore();
-
-    for (int k = 0; k < USER_NUM; k++)
+    if (inputFile.is_open() == false)
     {
-        for (int i = 0; i < 6; i++)
+        ofstream makeFile("User_Data.txt");
+        makeFile << "0";
+        makeFile.close();
+        cout << "'User_Data.txt' File not found. Creating file..." << endl;
+        system("PAUSE");
+    }
+    
+    inputFile >> USER_NUM;
+
+    if (USER_NUM != 0)
+    {
+        inputFile.ignore();
+
+        for (int k = 0; k < USER_NUM; k++)
         {
-            getline(inputFile,temp1[i]);
-        }
-        
+            for (int i = 0; i < 6; i++)
+            {
+                getline(inputFile,temp1[i]);
+            }
+            
         User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
         user[k] = userTemp;
+        }
     }
+    
     inputFile.close();
 }
 
@@ -229,15 +243,26 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
             
             case 2:
             {
-                loginReturnData userLogData =  userLoginMenu(user);
-                if (userLogData.valid == true)
+
+                if (USER_NUM == 0)
                 {
-                    userAppMenu(userLogData, user, hotspotArray);
+                    cout << "No registered users found / 'User_Data.txt' file not found" << endl;
+                    system("PAUSE");
+                }
+                else
+                {
+                    loginReturnData userLogData =  userLoginMenu(user);
+                    if (userLogData.valid == true)
+                    {
+                        userAppMenu(userLogData, user, hotspotArray);
+                    }
                 }
                 break;
+                
             }
                 
             case 3:
+
                 userRegister(user);
                 break;
 
@@ -246,7 +271,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
                 goto exit_loop;
             
             default:
-                cout<<"Please enter the valid number(1-4)"<<endl;
+                cout<<"Please enter a valid number(1-4)"<<endl;
                 break;
         }
     }
@@ -341,6 +366,9 @@ void userRegister(User user[]){
     user[USER_NUM] = userTemp;
 
     USER_NUM++;
+
+    cout << "\nRegistration successful, you may now log in using the registered account." << endl;
+    system("PAUSE");
 }
 
 //-----------------------------------------userAppMenu function----------------------------------------//
@@ -352,7 +380,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
     {
         menuPrint(2); //print userAppMenu screen
         
-        cout<<"Enter the number between 1-5 = ";
+        cout<<"Enter a number between 1-5 = ";
         cin >> choice;
         cout << endl;
 
@@ -394,7 +422,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             goto exit_loop;
         
         default:
-            cout<<"Please enter the valid number(1-4)"<<endl;
+            cout<<"Please enter a valid number(1-4)"<<endl;
             system("PAUSE");
             break;
         }
@@ -447,7 +475,7 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
     {
         menuPrint(1); //print admin app menu screen
         
-        cout<<"Enter the number between 1-2 = ";
+        cout<<"Enter a number between 1-2 = ";
         cin >> choice;
         cout << endl;
 
