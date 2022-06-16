@@ -62,16 +62,16 @@ class healthCondition{
             cout<<"Are you having any Covid-19 symptoms?(yes/no)"<< endl;
             getline(cin, symptoms);
 
-            cout<<"Have you had close contact?(yes/no)"<<endl;
+            cout<<"\nHave you had close contact?(yes/no)"<<endl;
             getline(cin, closeContact);
 
-            cout<<"What is your test result?(positive/negative)"<<endl;
+            cout<<"\nWhat is your test result?(positive/negative)"<<endl;
             getline(cin, testResult);
 
-            cout<<"Have you travelled outside of campus in the last 14 day?(yes/no)"<<endl;
+            cout<<"\nHave you travelled outside of campus in the last 14 day?(yes/no)"<<endl;
             getline(cin, travelStatus);
 
-            cout<<"Where are you currently residing?(KTHO/KTDI/KTC/KTF)"<<endl;
+            cout<<"\nWhere are you currently residing?(KTHO/KTDI/KTC/KTF)"<<endl;
             getline(cin, location);
 
         }// location == ktdi/ktho && TR == positive{+1 dekat infectednummber dalam hotspotinfo}
@@ -212,7 +212,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
     {
         menuPrint(0); //print loginMenu screen
         
-        cout<<"enter the number between 1-4 = ";
+        cout<<"Enter the number between 1-4 = ";
         cin >> choice;
         cout<<endl;
 
@@ -262,7 +262,7 @@ loginReturnData userLoginMenu(User user[]){
 
     logReturn.valid = false;
 
-    cout << "\nEnter user login info" << endl;
+    cout << "Enter user login info" << endl;
     cout << "Enter username: ";
     cin >> userName;
 
@@ -284,6 +284,7 @@ loginReturnData userLoginMenu(User user[]){
     if (logReturn.valid == false)
     {
         cout << "Incorrect username or password" << endl;
+        system("PAUSE");
     }
     
     return logReturn;
@@ -351,7 +352,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
     {
         menuPrint(2); //print userAppMenu screen
         
-        cout<<"enter the number between 1-5 = ";
+        cout<<"Enter the number between 1-5 = ";
         cin >> choice;
         cout << endl;
 
@@ -379,18 +380,22 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             {
                 hotspotArray[i].print();
             }
+            system("PAUSE");
             break;
 
         case 3:
             guideInfo();
+            system("PAUSE");
             break;
             
         case 4:
             cout<< "Exiting now..."<<endl;
+            system("PAUSE");
             goto exit_loop;
         
         default:
-            cout<<"Please enter the valid number(1-5)"<<endl;
+            cout<<"Please enter the valid number(1-4)"<<endl;
+            system("PAUSE");
             break;
         }
     }
@@ -404,7 +409,7 @@ bool adminLoginMenu(admin admin_){
     string userName, password, adminID;
     bool valid;
     
-    cout << "\nEnter admin login info" << endl;
+    cout << "Enter admin login info" << endl;
 
     cout << "Enter username: ";
     cin >> userName;
@@ -427,6 +432,7 @@ bool adminLoginMenu(admin admin_){
     if (valid == false)
     {
         cout << "Incorrect username, password, or adminID" << endl;
+        system("PAUSE");
     }
     
     return valid;
@@ -441,7 +447,7 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
     {
         menuPrint(1); //print admin app menu screen
         
-        cout<<"enter the number between 1-2 = ";
+        cout<<"Enter the number between 1-2 = ";
         cin >> choice;
         cout << endl;
 
@@ -450,13 +456,15 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
             cout << "Enter index of chosen college -> ";
             cin >> index;
 
-            do 
+            if (index < 0 || index > 3)
             {
-                cout << "Please enter a valid index value - >";
-                cin >> index;
-            }while(index < 0 || index > 3);
+                do 
+                {
+                    cout << "Please enter a valid index value -> ";
+                    cin >> index;
+                }while(index < 0 || index > 3);
+            }
             
-
             cout << "Enter amount to add -> ";
             cin >> num;
 
@@ -490,36 +498,42 @@ void menuPrint(int n){
         cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Admin Login"<<endl;
         cout<< setw(10)<<" 2. "<<setw(10)<<"User Login"<<endl;
         cout<< setw(10)<<" 3. "<<setw(10)<<"Register"<<endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl<<endl;
     }
 
     if (n == 1) //print admin menu
     {
+        system("CLS");
+        
         cout<<"\n                  ADMIN                   "<<endl;
         cout<<"------------------------------------------"<<endl;
         cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
         cout<<"------------------------------------------"<<endl;
 
         cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Edit number of cases"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"Exit"<<endl;
+        cout<< setw(10)<<" 2. "<<setw(10)<<"Exit"<<endl<<endl;
     }
 
     if (n == 2) // print app menu
-    {
+    {   
+        system("CLS");
+        
         cout<<"\nWELCOME TO COV19 ASSIST AND TRACING SYSTEM"<<endl;
         cout<<"------------------------------------------"<<endl;
         cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
         cout<<"------------------------------------------"<<endl;
     
-        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Health Condition"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"HotSpot Info"<<endl;
-        cout<< setw(10)<<" 3. "<<setw(10)<<"Guide Info"<<endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl;
+        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Health Condition Self-Check"<<endl;
+        cout<< setw(10)<<" 2. "<<setw(10)<<"HotSpot Info"<< endl;
+        cout<< setw(10)<<" 3. "<<setw(10)<<"Guide Info"<< endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl << endl;
     }
 
     if (n == 3)
-    {
-        cout<<"\n          GUIDE INFO         "<<endl;
+    {   
+        system("CLS");
+
+        cout<<"\n             GUIDE INFO         "<<endl;
         cout<<"   FOR COV19 ASSIST AND TRACING SYSTEM    "<<endl;
         cout<<"------------------------------------------"<<endl;
         cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
@@ -528,7 +542,7 @@ void menuPrint(int n){
         cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Facilities"<<endl;
         cout<< setw(10)<<" 2. "<<setw(10)<<"Hotline Numbers"<<endl;
         cout<< setw(10)<<" 3. "<<setw(10)<<"Standard Operation Procedure (SOP)"<<endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Return"<<endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"Return"<<endl<<endl;
     }
 }
 
@@ -543,7 +557,7 @@ void guideInfo()
         menuPrint(3); //print guideInfo screen
 
 
-        cout<<"enter the number between 1-4 = ";
+        cout<<"Enter the number between 1-4 = ";
         cin >> choice;
 
         switch(choice){
@@ -561,7 +575,8 @@ void guideInfo()
                     cout<<"FREE SWAB TEST AND QUARANTINE AREA PROVIDED"<<endl;
                     cout<<"AT KOLEJ TUN RAZAK(KTR)"<<endl;
                     cout<<"-------------------------------------------"<<endl;
-                    cout<<"STUDENTS MUST REGISTER FIRST IN ORDER TO ACCESS THESE PRIVILEDGES"<<endl;
+                    cout<<"STUDENTS MUST REGISTER FIRST IN ORDER TO ACCESS THESE PRIVILEDGES"<<endl << endl;
+                    system("PAUSE");
                     break;
                 }
 
@@ -575,8 +590,8 @@ void guideInfo()
                     cout<<"UTM AMBULANCE             ="<<setw(15)<<"+6075530999"<<endl;
                     cout<<"UTM HEALTH CENTRE         ="<<setw(15)<<"+60197756765"<<endl;
                     cout<<"STUDENT AFFAIRS HOTLINE 1 ="<<setw(15)<<"+6075530279"<<endl;
-                    cout<<"STUDENT AFFAIRS HOTLINE 2 ="<<setw(15)<<"+6075530265"<<endl;
-
+                    cout<<"STUDENT AFFAIRS HOTLINE 2 ="<<setw(15)<<"+6075530265"<<endl << endl;
+                    system("PAUSE");
                     break;
                 }
             
@@ -601,7 +616,8 @@ void guideInfo()
                     cout<<"3. If symptomatic, take the RTK-Ag test, either on your own or at a nearby health facility for further treatment."<<endl;
                     cout<<"4. Results of the self-test must be submitted in the Mysejahtera application. "<<endl;
                     cout<<"5. Perform the RTK-Ag test, either at a government or private facility, on the fifth day and the seventh day (for those undergoing seven days of isolation)."<<endl;
-                    cout<<"6. If the test results are negative and the individual is asymptomatic, a quarantine release will be given on the same day the test is performed."<<endl;
+                    cout<<"6. If the test results are negative and the individual is asymptomatic, a quarantine release will be given on the same day the test is performed."<<endl << endl;
+                    system("PAUSE");
                     break;
                 }
 
@@ -612,6 +628,7 @@ void guideInfo()
         
             default:
                 cout<<"Please enter the valid number(1-4)"<<endl;
+                system("PAUSE");
                 break;
         }
     }
@@ -621,6 +638,7 @@ void guideInfo()
 
 //--------------------------------------------main function--------------------------------------------//
 int main(){
+    system("Color 0E");
     ifstream inFile("User_Data.txt");
     inFile >> USER_NUM;
     inFile.close();
