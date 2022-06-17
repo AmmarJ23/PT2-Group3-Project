@@ -31,19 +31,73 @@ class loginInfo{
 
         loginInfo(string n="", string p = ""){setNP(n,p);}
 
-        string getUsername() const{
+        string getUsername() const
+        {
             return userName;
         }
 
-        string getPassword()const {
+        string getPassword() const
+        {
             return password;
         }
 
-        void setNP(string n, string p) {
+        void setNP(string n, string p)
+        {
             this->userName = n;
             this->password = p;
         }
+
+        virtual void print()
+        {
+            cout<< userName << endl;
+            cout<< password << endl;
+        }
 };
+
+//-------------------------------------------hotspotInfo class-----------------------------------------//
+class hotspotInfo{
+    private:
+        string hotspotArea, areaStatus;
+        int infectedNum;
+    public:
+        hotspotInfo(){}
+
+        hotspotInfo(string ha, int infNum)
+        {
+            hotspotArea = ha;
+            infectedNum = infNum;
+
+            areaStatusCalc();
+        }
+
+        void areaStatusCalc()
+        {
+            if(infectedNum <=3){areaStatus = "Safe";}
+            else {areaStatus = "Not safe";}
+        }
+
+        void print()
+        {   
+            cout << "COVID-19 INFO FOR :" << hotspotArea << endl;
+            cout << "Area Status: " << areaStatus << endl;
+            cout << "Number of Infected People : " << infectedNum << endl << endl;
+
+        }
+
+        hotspotInfo operator+(int i){
+            hotspotInfo obj;
+            obj.hotspotArea = hotspotArea;
+            obj.infectedNum = infectedNum + i;
+
+            if(obj.infectedNum <=3){obj.areaStatus = "Safe";}
+            else {obj.areaStatus = "Not safe";}
+
+            return obj;
+        }
+
+        string getHotspotArea(){return hotspotArea;}
+};
+
 
 //----------------------------------------healthCondition class----------------------------------------//
 class healthCondition{
@@ -92,6 +146,7 @@ class healthCondition{
 class User: public loginInfo{ 
     private:
         string name, address, vaccine, phoneNumber;
+        hotspotInfo *college;
         
     public:
 
@@ -115,6 +170,16 @@ class User: public loginInfo{
             cout << "Vaccine     : " << vaccine << endl;
             cout << "Phone Number: " << phoneNumber << endl;
         }
+
+        void setCollege(hotspotInfo obj)
+        {
+            college = &obj;
+        }
+
+        hotspotInfo* getCollege()
+        {
+            return college;
+        }
 };
 
 //----------------------------------------------User class---------------------------------------------//
@@ -132,51 +197,15 @@ class admin : public loginInfo{
         string getAdminID(){
             return AdminID;
         }
-};
-
-//-------------------------------------------hotspotInfo class-----------------------------------------//
-class hotspotInfo{
-    private:
-        string hotspotArea, areaStatus;
-        int infectedNum;
-    public:
-        hotspotInfo(){}
-
-        hotspotInfo(string ha, int infNum)
-        {
-            hotspotArea = ha;
-            infectedNum = infNum;
-
-            areaStatusCalc();
-        }
-
-        void areaStatusCalc()
-        {
-            if(infectedNum <=3){areaStatus = "Safe";}
-            else {areaStatus = "Not safe";}
-        }
 
         void print()
-        {   
-            cout << "COVID-19 INFO FOR :" << hotspotArea << endl;
-            cout << "Area Status: " << areaStatus << endl;
-            cout << "Number of Infected People : " << infectedNum << endl << endl;
-
+        {
+            cout << "Username : " << userName << endl;
+            cout << "Password : " << password << endl;
+            cout << "AdminID  : " << AdminID  << endl;
         }
-
-        hotspotInfo operator+(int i){
-            hotspotInfo obj;
-            obj.hotspotArea = hotspotArea;
-            obj.infectedNum = infectedNum + i;
-
-            if(obj.infectedNum <=3){obj.areaStatus = "Safe";}
-            else {obj.areaStatus = "Not safe";}
-
-            return obj;
-        }
-
-        string getHotspotArea(){return hotspotArea;}
 };
+
 
 //function prototype
 void getUserData(User []);
@@ -383,6 +412,7 @@ void userRegister(User user[]){
 void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[]){
 
     int choice;
+    int tempCollege;
 
     while (true)
     {
@@ -404,10 +434,13 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
                     if(user[logData.userIndex].userHealth.getLocation().compare(hotspotArray[i].getHotspotArea()) == 0)
                     {
                         hotspotArray[i] = hotspotArray[i] + 1;
+                        tempCollege = i;
+                        
                     }
                 }
             }
 
+            user[logData.userIndex].setCollege(hotspotArray[tempCollege]);
             break;
         }
             
@@ -428,6 +461,13 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             cout<< "Exiting now..."<<endl;
             system("PAUSE");
             goto exit_loop;
+
+        case 5:
+            cout << endl;
+            user[logData.userIndex].getCollege()->print();
+            cout << endl;
+            system("PAUSE");
+            break;
         
         default:
             cout<<"Please enter a valid number(1-4)"<<endl;
