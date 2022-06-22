@@ -12,7 +12,7 @@ using namespace std;
 class User: public loginInfo{ 
     private:
         string name, address, vaccine, phoneNumber;
-        hotspotInfo *college;
+        hotspotInfo *college = NULL;
         
     public:
         healthCondition userHealth;
