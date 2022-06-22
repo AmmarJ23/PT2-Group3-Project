@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "loginInfo.h"
+#include "loginInfo.hpp"
 using namespace std;
 
 #ifndef ADMIN_H
@@ -11,23 +11,9 @@ class admin : public loginInfo{
     private:
         string AdminID;
     public:
-        admin(string u, string p, string ID)
-        {
-            userName = u;
-            password = p;
-            AdminID = ID;
-        }
-
-        string getAdminID(){
-            return AdminID;
-        }
-
-        void print()
-        {
-            cout << "Username : " << userName << endl;
-            cout << "Password : " << password << endl;
-            cout << "AdminID  : " << AdminID  << endl;
-        }
+        admin(string u, string p, string ID);
+        string getAdminID();
+        void print();
 };
 
 #endif
