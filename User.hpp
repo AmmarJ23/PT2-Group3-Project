@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "loginInfo.h"
+#include "loginInfo.hpp"
 using namespace std;
 
 #ifndef USER_H

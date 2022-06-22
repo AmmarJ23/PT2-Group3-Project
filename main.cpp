@@ -11,11 +11,11 @@
 #include <fstream>
 #include <iomanip>
 #include <cstdio>
-#include "loginInfo.h"
-#include "hotspotInfo.h"
-#include "healthCondition.h"
-#include "User.h"
-#include "admin.h"
+#include "loginInfo.hpp"
+#include "hotspotInfo.hpp"
+#include "healthCondition.hpp"
+#include "User.hpp"
+#include "admin.hpp"
 using namespace std;
 
 //global variable for number of users
