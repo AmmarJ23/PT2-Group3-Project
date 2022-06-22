@@ -21,7 +21,7 @@ using namespace std;
 //global variable for number of users
 int USER_NUM;
 
-//---------------------------------------loginReturnData struct----------------------------------------//
+//----------------------------------------loginReturnData struct----------------------------------------//
 struct loginReturnData
 {
     bool valid;
@@ -39,7 +39,7 @@ void adminAppMenu(hotspotInfo[]);
 void menuPrint(int);
 void guideInfo();
 
-//----------------------------------------getUserData function-----------------------------------------//
+//----------------------------------------getUserData function------------------------------------------//
 void getUserData(User user[]){
 
     string temp1[6];
@@ -137,7 +137,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
     exit_loop: ;
 }
 
-//----------------------------------------userLoginMenu function---------------------------------------//
+//----------------------------------------userLoginMenu function----------------------------------------//
 loginReturnData userLoginMenu(User user[]){
 
     string userName, password;
@@ -173,7 +173,7 @@ loginReturnData userLoginMenu(User user[]){
     return logReturn;
 }
 
-//----------------------------------------userRegister function----------------------------------------//
+//----------------------------------------userRegister function-----------------------------------------//
 void userRegister(User user[]){
     string temp1[6];
     string tempBin = "";
@@ -229,7 +229,7 @@ void userRegister(User user[]){
     system("PAUSE");
 }
 
-//-----------------------------------------userAppMenu function----------------------------------------//
+//-----------------------------------------userAppMenu function-----------------------------------------//
 void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[]){
 
     int choice;
@@ -248,15 +248,16 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
         {
             user[logData.userIndex].userHealth.setHealthCondition();
 
-            if (user[logData.userIndex].userHealth.getTestResult() == "positive")
+            for (int i = 0; i < 4; i++)
             {
-                for (int i = 0; i < 4; i++)
+                if(user[logData.userIndex].userHealth.getLocation().compare(hotspotArray[i].getHotspotArea()) == 0)
                 {
-                    if(user[logData.userIndex].userHealth.getLocation().compare(hotspotArray[i].getHotspotArea()) == 0)
+                    if (user[logData.userIndex].userHealth.getTestResult() == "positive")
                     {
                         hotspotArray[i] = hotspotArray[i] + 1;
-                        tempCollege = i;
                     }
+                    
+                    tempCollege = i;
                 }
             }
 
@@ -276,19 +277,22 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             guideInfo();
             system("PAUSE");
             break;
-            
+
         case 4:
+            cout << endl;
+            if (user[logData.userIndex].getCollege() != NULL)
+            {
+                user[logData.userIndex].getCollege()->print();
+            } else {cout << "No college linked with user. \nPlease complete a health self-check to check user college information." << endl;}
+            cout << endl;
+            system("PAUSE");
+            break;
+            
+        case 5:
             cout<< "Exiting now..."<<endl;
             system("PAUSE");
             goto exit_loop;
 
-        case 5:
-            cout << endl;
-            user[logData.userIndex].getCollege()->print();
-            cout << endl;
-            system("PAUSE");
-            break;
-        
         default:
             cout<<"Please enter a valid number(1-4)"<<endl;
             system("PAUSE");
@@ -299,7 +303,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
     exit_loop: ;
 }
 
-//---------------------------------------adminLoginMenu function---------------------------------------//
+//---------------------------------------adminLoginMenu function----------------------------------------//
 bool adminLoginMenu(admin admin_){
 
     string userName, password, adminID;
@@ -334,7 +338,7 @@ bool adminLoginMenu(admin admin_){
     return valid;
 }
 
-//---------------------------------------adminAppMenu function---------------------------------------//
+//---------------------------------------adminAppMenu function------------------------------------------//
 void adminAppMenu(hotspotInfo hotspotArray[]){
 
     int choice, index, num;
@@ -367,9 +371,15 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
             hotspotArray[index] = hotspotArray[index] + num;
         }
 
-        if (choice == 2)
+        else if (choice == 2)
         {
             goto exit_loop;
+        }
+
+        else 
+        { 
+            cout << "Please enter a valid number" << endl;
+            system("PAUSE");
         }
         
     }
@@ -378,7 +388,7 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
 
 }
 
-//-----------------------------------------menuPrint function------------------------------------------//
+//-----------------------------------------menuPrint function-------------------------------------------//
 void menuPrint(int n){
     
     if (n == 0) // print login menu
@@ -422,7 +432,8 @@ void menuPrint(int n){
         cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Health Condition Self-Check"<<endl;
         cout<< setw(10)<<" 2. "<<setw(10)<<"HotSpot Info"<< endl;
         cout<< setw(10)<<" 3. "<<setw(10)<<"Guide Info"<< endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"Exit"<<endl << endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"User College Information"<<endl;
+        cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl << endl;
     }
 
     if (n == 3)
@@ -442,7 +453,7 @@ void menuPrint(int n){
     }
 }
 
-//--------------------------------------------guideInfo function------------------------------------------//
+//-------------------------------------------guideInfo function-----------------------------------------//
 void guideInfo()
 {   
     
@@ -532,14 +543,13 @@ void guideInfo()
     exit_loop: ;
 };
 
-//--------------------------------------------main function--------------------------------------------//
+//--------------------------------------------main function---------------------------------------------//
 int main(){
     system("Color 0E");
     ifstream inFile("User_Data.txt");
     inFile >> USER_NUM;
     inFile.close();
 
-    string temp1[5];
     User userArray[100];
     admin admin_("Admin", "Admin123", "001122");
     hotspotInfo hotspotArray[4] = {hotspotInfo("KTHO",0), hotspotInfo("KTDI",2), hotspotInfo("KTC",6), hotspotInfo("KTF",9)};
