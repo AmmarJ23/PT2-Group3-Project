@@ -10,30 +10,12 @@ class loginInfo{
     protected:
         string userName, password;
     public:
-
-        loginInfo(string n="", string p = ""){setNP(n,p);}
-
-        string getUsername() const
-        {
-            return userName;
-        }
-
-        string getPassword() const
-        {
-            return password;
-        }
-
-        void setNP(string n, string p)
-        {
-            this->userName = n;
-            this->password = p;
-        }
-
-        virtual void print()
-        {
-            cout<< userName << endl;
-            cout<< password << endl;
-        }
+        loginInfo();
+        loginInfo(string n, string p);
+        void setNP(string n, string p);
+        string getUsername() const;
+        string getPassword() const;
+        virtual void print();
 };
 
 #endif
