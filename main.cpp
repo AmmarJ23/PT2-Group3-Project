@@ -256,7 +256,6 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
                     {
                         hotspotArray[i] = hotspotArray[i] + 1;
                         tempCollege = i;
-                        
                     }
                 }
             }
