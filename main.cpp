@@ -30,6 +30,7 @@ struct loginReturnData
 void getUserData(User []);
 void LoginMenu(User [], admin , hotspotInfo []);
 loginReturnData userLoginMenu(User []);
+void copyArray(User[], User[]);
 void userRegister(User[]);
 void userAppMenu(loginReturnData, User[], hotspotInfo[]);
 bool adminLoginMenu(admin);
@@ -171,12 +172,24 @@ loginReturnData userLoginMenu(User user[]){
     return logReturn;
 }
 
+void copyArray(User src[], User dest[])
+{
+    for (int i = 0; i < USER_NUM; i++)
+    {
+        dest[i] = src[i];
+    }
+    
+}
+
 //----------------------------------------userRegister function-----------------------------------------//
 void userRegister(User user[]){
     string temp1[6];
     string tempBin = "";
     int userNumTemp = USER_NUM;
     int userSkip = USER_NUM * 5;
+    User tempUser[USER_NUM];
+
+    copyArray(user, tempUser);
 
     ofstream outputFile("User_DataTemp.txt");
     outputFile << USER_NUM + 1 << endl;
@@ -186,7 +199,7 @@ void userRegister(User user[]){
 
     getline(inputFile,tempBin);
 
-    for (int i = 0; i < userSkip + 3; i++)
+    for (int i = 0; i < userSkip + 4; i++)
     {
         getline(inputFile, tempBin);
         outputFile << tempBin << endl;
@@ -217,6 +230,9 @@ void userRegister(User user[]){
     remove("User_Data.txt");
     
     rename("User_DataTemp.txt", "User_Data.txt");
+
+    user = new User[USER_NUM+1];
+    copyArray(tempUser, user);
 
     User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
     user[USER_NUM] = userTemp;
@@ -548,14 +564,14 @@ int main(){
     inFile >> USER_NUM;
     inFile.close();
 
-    User userArray[100];
+    // User userArray[100];
+    User* userArray = new User[USER_NUM];
     admin admin_("Admin", "Admin123", "001122");
     hotspotInfo hotspotArray[4] = {hotspotInfo("KTHO",0), hotspotInfo("KTDI",2), hotspotInfo("KTC",6), hotspotInfo("KTF",9)};
     getUserData(userArray);
 
     LoginMenu(userArray, admin_, hotspotArray);
     
-
     system("PAUSE");
     return 0;
 }
