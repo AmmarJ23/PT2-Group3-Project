@@ -4,8 +4,6 @@
 //          3. Ryan Lim Shen            A21EC0223
 //          4. Ammar bin Jamalludin     A21EC0160
 
-// Updated Draft 2 Class Diagram: https://drive.google.com/file/d/105DjIRSmhYw7dDC1cr5lvo4c5V_vX667/view?usp=sharing
-
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -556,7 +554,21 @@ int main(){
     getUserData(userArray);
 
     LoginMenu(userArray, admin_, hotspotArray);
+    
 
     system("PAUSE");
     return 0;
 }
+
+/*
+
+    ? loginMenu could just be placed in main
+
+    * Find a way to reduce number of lines used, functions used.
+    * Find a way to implement a few functions into classes
+
+    * Make a dynamically changing userArray[] that changes as USER_COUNT changes after a user is registered
+    ? User userArray = new User[USER_COUNT]
+    ? Something like the above?
+
+*/
