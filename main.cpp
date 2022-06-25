@@ -587,4 +587,6 @@ int main(){
     ? User userArray = new User[USER_COUNT]
     ? Something like the above?
 
+    ? Try using getUserData() to copy from old file, into a temporary array, which can then be copied back into the dynamic Array
+
 */
