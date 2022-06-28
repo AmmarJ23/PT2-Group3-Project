@@ -5,7 +5,6 @@ using namespace std;
 #ifndef HEALTHCONDITION_H
 #define HEALTHCONDITION_H
 
-//----------------------------------------healthCondition class----------------------------------------//
 class healthCondition{
     private:
         string symptoms, closeContact, testResult, travelStatus, location;

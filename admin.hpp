@@ -6,7 +6,6 @@ using namespace std;
 #ifndef ADMIN_H
 #define ADMIN_H
 
-//----------------------------------------------User class---------------------------------------------//
 class admin : public loginInfo{
     private:
         string AdminID;

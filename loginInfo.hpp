@@ -5,7 +5,6 @@ using namespace std;
 #ifndef LOGININFO_H
 #define LOGININFO_H
 
-//-------------------------------------------loginInfo class-------------------------------------------//
 class loginInfo{
     protected:
         string userName, password;
