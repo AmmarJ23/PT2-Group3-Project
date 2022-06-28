@@ -1,13 +1,7 @@
-2
-Username1
-Username1Password
-John Doe
-123, Street name, 0000, District
-Pfizer
-11111
-Username2
-Username2Password
-Dave Cave
-321, Street name, 1111, District
-Moderna
-22222
+1
+user1
+pass1
+Aaaa Bbbb
+123, street no, zip code
+pfizer
+111111
