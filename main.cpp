@@ -186,7 +186,7 @@ void userRegister(User user[]){
 
     getline(inputFile,tempBin);
 
-    for (int i = 0; i < userSkip + 3; i++)
+    for (int i = 0; i < userSkip + 5; i++)
     {
         getline(inputFile, tempBin);
         outputFile << tempBin << endl;
