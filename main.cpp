@@ -33,7 +33,7 @@ loginReturnData userLoginMenu(User []);
 void userRegister(User[]);
 void userAppMenu(loginReturnData, User[], hotspotInfo[]);
 bool adminLoginMenu(admin);
-void adminAppMenu(hotspotInfo[]);
+void adminAppMenu(hotspotInfo[], admin);
 void menuPrint(int);
 void guideInfo();
 
@@ -92,7 +92,7 @@ void LoginMenu(User user[], admin admin_, hotspotInfo hotspotArray[])
                 bool adminValid = adminLoginMenu(admin_);
                 if (adminValid == true)
                 {
-                    adminAppMenu(hotspotArray);
+                    adminAppMenu(hotspotArray, admin_);
                 }
                 break;
             }
@@ -277,6 +277,11 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             break;
 
         case 4:
+            user[logData.userIndex].print();
+            system("PAUSE");
+            break;
+
+        case 5:
             cout << endl;
             if (user[logData.userIndex].getCollege() != NULL)
             {
@@ -285,8 +290,8 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             cout << endl;
             system("PAUSE");
             break;
-            
-        case 5:
+
+        case 6:
             cout<< "Exiting now..."<<endl;
             system("PAUSE");
             goto exit_loop;
@@ -337,7 +342,7 @@ bool adminLoginMenu(admin admin_){
 }
 
 //---------------------------------------adminAppMenu function------------------------------------------//
-void adminAppMenu(hotspotInfo hotspotArray[]){
+void adminAppMenu(hotspotInfo hotspotArray[], admin admin_){
 
     int choice, index, num;
 
@@ -370,6 +375,12 @@ void adminAppMenu(hotspotInfo hotspotArray[]){
         }
 
         else if (choice == 2)
+        {
+            admin_.print();
+            system("PAUSE");
+        }
+
+        else if (choice == 3)
         {
             goto exit_loop;
         }
@@ -414,8 +425,9 @@ void menuPrint(int n){
         cout<<"         PLEASE ENTER YOUR CHOICE         "<<endl;
         cout<<"------------------------------------------"<<endl;
 
-        cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Edit number of cases"<<endl;
-        cout<< setw(10)<<" 2. "<<setw(10)<<"Exit"<<endl<<endl;
+        cout<<left<< setw(10)<<" 1. "<< setw(10) << "Edit number of cases" << endl;
+        cout<< setw(10)<<" 2. "<< setw(10) <<"Admin Information"<< endl;
+        cout<< setw(10)<<" 3. "<< setw(10) <<"Exit"<< endl << endl;
     }
 
     if (n == 2) // print app menu
@@ -430,8 +442,9 @@ void menuPrint(int n){
         cout<<left<< setw(10)<<" 1. "<<setw(10)<<"Health Condition Self-Check"<<endl;
         cout<< setw(10)<<" 2. "<<setw(10)<<"HotSpot Info"<< endl;
         cout<< setw(10)<<" 3. "<<setw(10)<<"Guide Info"<< endl;
-        cout<< setw(10)<<" 4. "<<setw(10)<<"User College Information"<<endl;
-        cout<< setw(10)<<" 5. "<<setw(10)<<"Exit"<<endl << endl;
+        cout<< setw(10)<<" 4. "<<setw(10)<<"User Information"<<endl;
+        cout<< setw(10)<<" 5. "<<setw(10)<<"User College Information"<<endl;
+        cout<< setw(10)<<" 6. "<<setw(10)<<"Exit"<<endl << endl;
     }
 
     if (n == 3)
