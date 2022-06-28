@@ -20,7 +20,7 @@ void User::print()
     cout << "Name        : " << name << endl;
     cout << "Address     : " << address << endl;
     cout << "Vaccine     : " << vaccine << endl;
-    cout << "Phone Number: " << phoneNumber << endl;
+    cout << "Phone Number: " << phoneNumber << endl << endl;
 }
 
 void User::setCollege(hotspotInfo obj)
