@@ -1,4 +1,4 @@
-3
+2
 Username1
 Username1Password
 John Doe
@@ -11,12 +11,3 @@ Dave Cave
 321, Street name, 1111, District
 Moderna
 22222
-
-
-
-User3
-User3Pass
-Aaaa Bbbb
-Address, no, street name, zip code
-pfizer
-333333
