@@ -1,4 +1,4 @@
-5
+2
 Username1
 Username1Password
 John Doe
@@ -11,21 +11,3 @@ Dave Cave
 321, Street name, 1111, District
 Moderna
 22222
-Username3
-Username3Password
-Aaaa Bbbb
-333, Street name, 2222, District
-AstraZeneca
-333333
-Username4
-Username4Password
-Aaaa Bbbb
-st4
-vaccine
-444444
-Username5
-Username5Password
-Bbbb Cccc
-st5
-vaccine 5
-555555
