@@ -237,7 +237,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
     {
         menuPrint(2); //print userAppMenu screen
         
-        cout<<"Enter a number between 1-5 = ";
+        cout<<"Enter a number between 1-6 = ";
         cin >> choice;
         cout << endl;
 
