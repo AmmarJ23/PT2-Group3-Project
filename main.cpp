@@ -572,16 +572,3 @@ int main(){
     system("PAUSE");
     return 0;
 }
-
-/*
-
-    ? loginMenu could just be placed in main
-
-    * Find a way to reduce number of lines used, functions used.
-    * Find a way to implement a few functions into classes
-
-    * Make a dynamically changing userArray[] that changes as USER_COUNT changes after a user is registered
-    ? User userArray = new User[USER_COUNT]
-    ? Something like the above?
-
-*/
