@@ -15,5 +15,5 @@ void admin::print()
 {
     cout << "Username : " << userName << endl;
     cout << "Password : " << password << endl;
-    cout << "AdminID  : " << AdminID  << endl;
+    cout << "AdminID  : " << AdminID  << endl << endl;
 }
