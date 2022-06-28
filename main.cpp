@@ -350,7 +350,7 @@ void adminAppMenu(hotspotInfo hotspotArray[], admin admin_){
     {
         menuPrint(1); //print admin app menu screen
         
-        cout<<"Enter a number between 1-2 = ";
+        cout<<"Enter a number between 1-3 = ";
         cin >> choice;
         cout << endl;
 
@@ -568,7 +568,6 @@ int main(){
 
     LoginMenu(userArray, admin_, hotspotArray);
     
-
     system("PAUSE");
     return 0;
 }
