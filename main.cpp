@@ -297,7 +297,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             goto exit_loop;
 
         default:
-            cout<<"Please enter a valid number(1-4)"<<endl;
+            cout<<"Please enter a valid number(1-6)"<<endl;
             system("PAUSE");
             break;
         }
