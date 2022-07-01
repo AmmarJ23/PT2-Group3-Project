@@ -57,7 +57,7 @@ void getUserData(User user[]){
 
     if (USER_NUM != 0)      // if USER_NUM not 0
     {
-        inputFile.ignore();
+        inputFile.ignore(); // go to next line
 
         for (int k = 0; k < USER_NUM; k++)  //loop according to USER_NUM
         {
