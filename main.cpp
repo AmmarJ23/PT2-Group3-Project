@@ -40,6 +40,7 @@ void guideInfo();
 //----------------------------------------getUserData function------------------------------------------//
 void getUserData(User user[]){
 
+    //initialise variables
     string temp1[6];
     ifstream inputFile("User_Data.txt");
 
@@ -52,25 +53,25 @@ void getUserData(User user[]){
         system("PAUSE");
     }
     
-    inputFile >> USER_NUM;
+    inputFile >> USER_NUM; //get USER_NUM from User_Data.txt
 
-    if (USER_NUM != 0)
+    if (USER_NUM != 0)      // if USER_NUM not 0
     {
         inputFile.ignore();
 
-        for (int k = 0; k < USER_NUM; k++)
+        for (int k = 0; k < USER_NUM; k++)  //loop according to USER_NUM
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)     //loop 6 times to get all user information
             {
                 getline(inputFile,temp1[i]);
             }
             
-        User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
-        user[k] = userTemp;
+        User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]); //initialise User object with temp1 values
+        user[k] = userTemp; //set user[k] with userTemp
         }
     }
     
-    inputFile.close();
+    inputFile.close(); // close file
 }
 
 //-------------------------------------------LoginMenu function-----------------------------------------//
@@ -174,15 +175,15 @@ loginReturnData userLoginMenu(User user[]){
 //----------------------------------------userRegister function-----------------------------------------//
 void userRegister(User user[]){
     string temp1[6];        // store user values
-    string tempBin = "";    // temporary string
+    string tempBin = "";    // temporary string to use to skip lines
     int userSkip = USER_NUM * 6;   // calculate number of lines to skip
 
-    ofstream outputFile("User_DataTemp.txt");
-    outputFile << USER_NUM + 1 << endl;
+    ofstream outputFile("User_DataTemp.txt"); // create temporary txt file
+    outputFile << USER_NUM + 1 << endl;       // add 1 to USER_NUM in temporary file
 
-    ifstream inputFile("User_Data.txt");
+    ifstream inputFile("User_Data.txt");      // open User_Data.txt as input file
 
-    getline(inputFile,tempBin);
+    getline(inputFile,tempBin); // skip 1st line            
 
     for (int i = 0; i < userSkip; i++)  //skips lines
     {
@@ -192,6 +193,7 @@ void userRegister(User user[]){
 
     cin.ignore();
 
+    //get new user information
     cout << "Enter username     : ";
     getline(cin, temp1[0]);
     cout << "Enter password     : ";
@@ -205,21 +207,24 @@ void userRegister(User user[]){
     cout << "Enter phone number : ";
     getline(cin, temp1[5]);
 
+    //store new user information into User_DataTemp.txt
     for (int i = 0; i < 6; i++)
     {
         outputFile << temp1[i] << endl;
     }
 
+    // close both files
     inputFile.close();
     outputFile.close();
-    remove("User_Data.txt");
+
+    remove("User_Data.txt");    //delete original file
     
-    rename("User_DataTemp.txt", "User_Data.txt");
+    rename("User_DataTemp.txt", "User_Data.txt"); //rename new temporary file to User_Data.txt
 
-    User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]);
-    user[USER_NUM] = userTemp;
+    User userTemp(temp1[0], temp1[1], temp1[2], temp1[3], temp1[4], temp1[5]); //initialise User object with temp1
+    user[USER_NUM] = userTemp; // set the new user into the User array
 
-    USER_NUM++;
+    USER_NUM++; //add 1 to USER_NUM
 
     cout << "\nRegistration successful, you may now log in using the registered account." << endl;
     system("PAUSE");
@@ -228,6 +233,7 @@ void userRegister(User user[]){
 //-----------------------------------------userAppMenu function-----------------------------------------//
 void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[]){
 
+    //initialise variables
     int choice;
     int tempCollege;
 
@@ -235,12 +241,12 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
     {
         menuPrint(2); //print userAppMenu screen
         
-        cout<<"Enter a number between 1-6 = ";
+        cout<<"Enter a number between 1-6 = "; // user input for choice
         cin >> choice;
         cout << endl;
 
         switch(choice){
-        case 1:
+        case 1:// health condition self-check
         {
             user[logData.userIndex].userHealth.setHealthCondition();
 
@@ -250,7 +256,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
                 {
                     if (user[logData.userIndex].userHealth.getTestResult() == "positive")
                     {
-                        hotspotArray[i] = hotspotArray[i] + 1;
+                        hotspotArray[i] = hotspotArray[i] + 1; // if user is positive, add 1 to corresponding hotspotInfo
                     }
                     
                     tempCollege = i;    //sets tempCollege to i if the user input for college is the same with hotspotArray[i]
@@ -261,7 +267,7 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             break;
         }
             
-        case 2:
+        case 2: // display number of cases in every hotspotinfo
             for (int i = 0; i < 4; i++)
             {
                 hotspotArray[i].print(); 
@@ -269,17 +275,17 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             system("PAUSE");
             break;
 
-        case 3:
+        case 3: // display guideInfo
             guideInfo();
             system("PAUSE");
             break;
 
-        case 4:
+        case 4: // display userInformation
             user[logData.userIndex].print();
             system("PAUSE");
             break;
 
-        case 5:
+        case 5: // display information of linked hotspotInfo
             cout << endl;
             if (user[logData.userIndex].getCollege() != NULL)
             {
@@ -289,12 +295,12 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
             system("PAUSE");
             break;
 
-        case 6:
+        case 6: // exit user app menu
             cout<< "Exiting now..."<<endl;
             system("PAUSE");
             goto exit_loop;
 
-        default:
+        default: // invalid input
             cout<<"Please enter a valid number(1-6)"<<endl;
             system("PAUSE");
             break;
