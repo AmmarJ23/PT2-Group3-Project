@@ -47,7 +47,7 @@ void getUserData(User user[]){
     if (inputFile.is_open() == false)//check for User_Data.txt
     {
         ofstream makeFile("User_Data.txt"); // if no file found, create file
-        makeFile << "0";                    // set first value to 0
+        makeFile << "0";                    // output 0 to file
         makeFile.close();
         cout << "'User_Data.txt' File not found. Creating file..." << endl;
         system("PAUSE");
