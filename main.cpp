@@ -185,7 +185,7 @@ void userRegister(User user[]){
 
     getline(inputFile,tempBin); // skip 1st line            
 
-    for (int i = 0; i < userSkip; i++)  //skips lines
+    for (int i = 0; i < userSkip; i++)  //copy from User_Data.txt to User_DataTemp.txt
     {
         getline(inputFile, tempBin);
         outputFile << tempBin << endl;
