@@ -43,10 +43,10 @@ void getUserData(User user[]){
     string temp1[6];
     ifstream inputFile("User_Data.txt");
 
-    if (inputFile.is_open() == false)
+    if (inputFile.is_open() == false)//check for User_Data.txt
     {
-        ofstream makeFile("User_Data.txt");
-        makeFile << "0";
+        ofstream makeFile("User_Data.txt"); // if no file found, create file
+        makeFile << "0";                    // set first value to 0
         makeFile.close();
         cout << "'User_Data.txt' File not found. Creating file..." << endl;
         system("PAUSE");
@@ -173,20 +173,18 @@ loginReturnData userLoginMenu(User user[]){
 
 //----------------------------------------userRegister function-----------------------------------------//
 void userRegister(User user[]){
-    string temp1[6];
-    string tempBin = "";
-    int userNumTemp = USER_NUM;
-    int userSkip = USER_NUM * 5;
+    string temp1[6];        // store user values
+    string tempBin = "";    // temporary string
+    int userSkip = USER_NUM * 6;   // calculate number of lines to skip
 
     ofstream outputFile("User_DataTemp.txt");
     outputFile << USER_NUM + 1 << endl;
 
-    //ofstream outputFile("User_Data.txt", std::ios_base::app);
     ifstream inputFile("User_Data.txt");
 
     getline(inputFile,tempBin);
 
-    for (int i = 0; i < userSkip + USER_NUM; i++)
+    for (int i = 0; i < userSkip; i++)  //skips lines
     {
         getline(inputFile, tempBin);
         outputFile << tempBin << endl;
@@ -246,27 +244,27 @@ void userAppMenu(loginReturnData logData, User user[], hotspotInfo hotspotArray[
         {
             user[logData.userIndex].userHealth.setHealthCondition();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++) // goes through all hotspotArray (all college locations)
             {
-                if(user[logData.userIndex].userHealth.getLocation().compare(hotspotArray[i].getHotspotArea()) == 0)
+                if(user[logData.userIndex].userHealth.getLocation().compare(hotspotArray[i].getHotspotArea()) == 0) //checks if the input college is the same
                 {
                     if (user[logData.userIndex].userHealth.getTestResult() == "positive")
                     {
                         hotspotArray[i] = hotspotArray[i] + 1;
                     }
                     
-                    tempCollege = i;
+                    tempCollege = i;    //sets tempCollege to i if the user input for college is the same with hotspotArray[i]
                 }
             }
 
-            user[logData.userIndex].setCollege(hotspotArray[tempCollege]);
+            user[logData.userIndex].setCollege(hotspotArray[tempCollege]);  //points *college to hotspotArray[tempCollege]
             break;
         }
             
         case 2:
             for (int i = 0; i < 4; i++)
             {
-                hotspotArray[i].print();
+                hotspotArray[i].print(); 
             }
             system("PAUSE");
             break;
